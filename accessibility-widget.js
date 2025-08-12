@@ -3,10 +3,11 @@
     
     // Configuration
     const config = {
-        position: 'bottom-right', // bottom-right, bottom-left, top-right, top-left
-        theme: 'light', // light, dark
-        language: 'en', // en, es, fr, de, etc.
+        position: 'bottom-left', // Changed to bottom-left
+        theme: 'light',
+        language: 'en',
         features: {
+            seizureSafe: true,
             fontSize: true,
             contrast: true,
             grayscale: true,
@@ -49,51 +50,118 @@
             panel.id = 'accessibility-panel';
             panel.innerHTML = `
                 <div class="accessibility-header">
-                    <h3>Accessibility</h3>
-                    <button id="close-panel" aria-label="Close">×</button>
+                    <button id="reset-settings" aria-label="Reset Settings">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+                        </svg>
+                        Reset Settings
+                    </button>
+                    <button id="statement" aria-label="Statement">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM16 18H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                        Statement
+                    </button>
+                    <button id="hide-interface" aria-label="Hide Interface">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                        </svg>
+                        Hide Interface
+                    </button>
                 </div>
+                
+                <div class="search-section">
+                    <div class="search-container">
+                        <input type="text" id="search-content" placeholder="Q Unclear content? Search in dictionary..." aria-label="Search unclear content in dictionary">
+                        <button id="search-dropdown" aria-label="Search options">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M7 10l5 5 5-5z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
                 <div class="accessibility-content">
+                    <h3>Choose the right accessibility profile for you</h3>
+                    
                     <div class="accessibility-section">
-                        <h4>Text Size</h4>
-                        <div class="control-group">
-                            <button id="decrease-font" aria-label="Decrease font size">A-</button>
-                            <button id="reset-font" aria-label="Reset font size">Reset</button>
-                            <button id="increase-font" aria-label="Increase font size">A+</button>
+                        <div class="profile-item">
+                            <div class="profile-header">
+                                <h4>Seizure Safe Profile</h4>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="seizure-safe-toggle" aria-label="Toggle Seizure Safe Profile">
+                                    <label for="seizure-safe-toggle">
+                                        <span class="toggle-off">OFF</span>
+                                        <span class="toggle-on">ON</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="profile-description">Clear flashes & reduces color</p>
+                            <p class="profile-details">This profile enables epileptic and seizure prone users to browse safely by eliminating the risk of seizures that result from flashing or blinking animations and risky color combinations.</p>
                         </div>
                     </div>
                     
                     <div class="accessibility-section">
-                        <h4>Contrast</h4>
-                        <div class="control-group">
-                            <button id="high-contrast" aria-label="High contrast">High Contrast</button>
-                            <button id="negative-contrast" aria-label="Negative contrast">Negative</button>
-                            <button id="grayscale" aria-label="Grayscale">Grayscale</button>
-                            <button id="light-background" aria-label="Light background">Light BG</button>
+                        <div class="profile-item">
+                            <div class="profile-header">
+                                <h4>Vision Impaired Profile</h4>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="vision-impaired-toggle" aria-label="Toggle Vision Impaired Profile">
+                                    <label for="vision-impaired-toggle">
+                                        <span class="toggle-off">OFF</span>
+                                        <span class="toggle-on">ON</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="profile-description">Enhances website's visuals</p>
                         </div>
                     </div>
                     
                     <div class="accessibility-section">
-                        <h4>Navigation</h4>
-                        <div class="control-group">
-                            <button id="highlight-links" aria-label="Highlight links">Highlight Links</button>
-                            <button id="reading-guide" aria-label="Reading guide">Reading Guide</button>
-                            <button id="big-cursor" aria-label="Big cursor">Big Cursor</button>
+                        <div class="profile-item">
+                            <div class="profile-header">
+                                <h4>Cognitive Disability Profile</h4>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="cognitive-toggle" aria-label="Toggle Cognitive Disability Profile">
+                                    <label for="cognitive-toggle">
+                                        <span class="toggle-off">OFF</span>
+                                        <span class="toggle-on">ON</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="profile-description">Assists with reading and focusing</p>
                         </div>
                     </div>
                     
                     <div class="accessibility-section">
-                        <h4>Font</h4>
-                        <div class="control-group">
-                            <button id="font-dyslexic" aria-label="Dyslexic friendly font">Dyslexic</button>
-                            <button id="font-sans" aria-label="Sans serif font">Sans Serif</button>
-                            <button id="font-serif" aria-label="Serif font">Serif</button>
+                        <div class="profile-item">
+                            <div class="profile-header">
+                                <h4>ADHD Friendly Profile</h4>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="adhd-toggle" aria-label="Toggle ADHD Friendly Profile">
+                                    <label for="adhd-toggle">
+                                        <span class="toggle-off">OFF</span>
+                                        <span class="toggle-on">ON</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="profile-description">Reduces distractions and helps focus</p>
                         </div>
                     </div>
                     
                     <div class="accessibility-section">
-                        <h4>Reset</h4>
-                        <div class="control-group">
-                            <button id="reset-all" aria-label="Reset all settings">Reset All</button>
+                        <div class="profile-item">
+                            <div class="profile-header">
+                                <h4>Blind Users Profile</h4>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="blind-toggle" aria-label="Toggle Blind Users Profile">
+                                    <label for="blind-toggle">
+                                        <span class="toggle-off">OFF</span>
+                                        <span class="toggle-on">ON</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="profile-description">Compatible with screen readers</p>
                         </div>
                     </div>
                 </div>
@@ -107,70 +175,24 @@
                 this.togglePanel();
             });
 
-            // Close panel
-            document.getElementById('close-panel').addEventListener('click', () => {
+            // Hide interface
+            document.getElementById('hide-interface').addEventListener('click', () => {
                 this.hidePanel();
             });
 
-            // Font size controls
-            document.getElementById('increase-font').addEventListener('click', () => {
-                this.changeFontSize(1);
-            });
-
-            document.getElementById('decrease-font').addEventListener('click', () => {
-                this.changeFontSize(-1);
-            });
-
-            document.getElementById('reset-font').addEventListener('click', () => {
-                this.resetFontSize();
-            });
-
-            // Contrast controls
-            document.getElementById('high-contrast').addEventListener('click', () => {
-                this.toggleHighContrast();
-            });
-
-            document.getElementById('negative-contrast').addEventListener('click', () => {
-                this.toggleNegativeContrast();
-            });
-
-            document.getElementById('grayscale').addEventListener('click', () => {
-                this.toggleGrayscale();
-            });
-
-            document.getElementById('light-background').addEventListener('click', () => {
-                this.toggleLightBackground();
-            });
-
-            // Navigation controls
-            document.getElementById('highlight-links').addEventListener('click', () => {
-                this.toggleHighlightLinks();
-            });
-
-            document.getElementById('reading-guide').addEventListener('click', () => {
-                this.toggleReadingGuide();
-            });
-
-            document.getElementById('big-cursor').addEventListener('click', () => {
-                this.toggleBigCursor();
-            });
-
-            // Font controls
-            document.getElementById('font-dyslexic').addEventListener('click', () => {
-                this.changeFontFamily('dyslexic');
-            });
-
-            document.getElementById('font-sans').addEventListener('click', () => {
-                this.changeFontFamily('sans');
-            });
-
-            document.getElementById('font-serif').addEventListener('click', () => {
-                this.changeFontFamily('serif');
-            });
-
-            // Reset all
-            document.getElementById('reset-all').addEventListener('click', () => {
+            // Reset settings
+            document.getElementById('reset-settings').addEventListener('click', () => {
                 this.resetAll();
+            });
+
+            // Seizure Safe Profile
+            document.getElementById('seizure-safe-toggle').addEventListener('change', (e) => {
+                this.toggleSeizureSafe(e.target.checked);
+            });
+
+            // Vision Impaired Profile
+            document.getElementById('vision-impaired-toggle').addEventListener('change', (e) => {
+                this.toggleVisionImpaired(e.target.checked);
             });
 
             // Close panel when clicking outside
@@ -199,153 +221,150 @@
             panel.classList.remove('active');
         },
 
-        changeFontSize(delta) {
-            const currentSize = parseInt(localStorage.getItem('accessibility-font-size') || '100');
-            const newSize = Math.max(50, Math.min(200, currentSize + delta * 10));
-            localStorage.setItem('accessibility-font-size', newSize);
-            document.documentElement.style.fontSize = newSize + '%';
-        },
-
-        resetFontSize() {
-            localStorage.removeItem('accessibility-font-size');
-            document.documentElement.style.fontSize = '100%';
-        },
-
-        toggleHighContrast() {
-            const isActive = document.body.classList.toggle('accessibility-high-contrast');
-            localStorage.setItem('accessibility-high-contrast', isActive);
-        },
-
-        toggleNegativeContrast() {
-            const isActive = document.body.classList.toggle('accessibility-negative-contrast');
-            localStorage.setItem('accessibility-negative-contrast', isActive);
-        },
-
-        toggleGrayscale() {
-            const isActive = document.body.classList.toggle('accessibility-grayscale');
-            localStorage.setItem('accessibility-grayscale', isActive);
-        },
-
-        toggleLightBackground() {
-            const isActive = document.body.classList.toggle('accessibility-light-bg');
-            localStorage.setItem('accessibility-light-bg', isActive);
-        },
-
-        toggleHighlightLinks() {
-            const isActive = document.body.classList.toggle('accessibility-highlight-links');
-            localStorage.setItem('accessibility-highlight-links', isActive);
-        },
-
-        toggleReadingGuide() {
-            const isActive = document.body.classList.toggle('accessibility-reading-guide');
-            localStorage.setItem('accessibility-reading-guide', isActive);
-            if (isActive) {
-                this.createReadingGuide();
+        toggleSeizureSafe(enabled) {
+            if (enabled) {
+                // Apply seizure safe features
+                document.body.classList.add('accessibility-seizure-safe');
+                localStorage.setItem('accessibility-seizure-safe', 'true');
+                
+                // Disable animations and reduce motion
+                this.disableAnimations();
+                this.reduceMotion();
+                this.safeColors();
             } else {
-                this.removeReadingGuide();
+                // Remove seizure safe features
+                document.body.classList.remove('accessibility-seizure-safe');
+                localStorage.setItem('accessibility-seizure-safe', 'false');
+                
+                // Re-enable animations
+                this.enableAnimations();
             }
         },
 
-        toggleBigCursor() {
-            const isActive = document.body.classList.toggle('accessibility-big-cursor');
-            localStorage.setItem('accessibility-big-cursor', isActive);
-        },
-
-        changeFontFamily(family) {
-            const fonts = {
-                dyslexic: 'OpenDyslexic, Arial, sans-serif',
-                sans: 'Arial, Helvetica, sans-serif',
-                serif: 'Georgia, Times, serif'
-            };
-            document.body.style.fontFamily = fonts[family];
-            localStorage.setItem('accessibility-font-family', family);
-        },
-
-        createReadingGuide() {
-            const guide = document.createElement('div');
-            guide.id = 'reading-guide';
-            guide.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background: #ff0000;
-                z-index: 9999;
-                pointer-events: none;
+        disableAnimations() {
+            // Disable CSS animations and transitions
+            const style = document.createElement('style');
+            style.id = 'seizure-safe-styles';
+            style.textContent = `
+                *, *::before, *::after {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                    scroll-behavior: auto !important;
+                }
+                
+                /* Disable flashing elements */
+                * {
+                    animation: none !important;
+                    transition: none !important;
+                }
+                
+                /* Remove any blinking or flashing */
+                @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 1; } }
+                @keyframes flash { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 1; } }
+                @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 1; } }
             `;
-            document.body.appendChild(guide);
+            document.head.appendChild(style);
         },
 
-        removeReadingGuide() {
-            const guide = document.getElementById('reading-guide');
-            if (guide) guide.remove();
+        reduceMotion() {
+            // Add reduced motion support
+            const style = document.createElement('style');
+            style.id = 'reduced-motion-styles';
+            style.textContent = `
+                @media (prefers-reduced-motion: reduce) {
+                    *, *::before, *::after {
+                        animation-duration: 0.01ms !important;
+                        animation-iteration-count: 1 !important;
+                        transition-duration: 0.01ms !important;
+                        scroll-behavior: auto !important;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        },
+
+        safeColors() {
+            // Apply safe color combinations
+            const style = document.createElement('style');
+            style.id = 'safe-colors-styles';
+            style.textContent = `
+                .accessibility-seizure-safe {
+                    /* Use high contrast, non-flashing colors */
+                    color: #000000 !important;
+                    background-color: #ffffff !important;
+                }
+                
+                .accessibility-seizure-safe a {
+                    color: #0000EE !important;
+                }
+                
+                .accessibility-seizure-safe a:visited {
+                    color: #551A8B !important;
+                }
+                
+                /* Remove any bright flashing colors */
+                .accessibility-seizure-safe * {
+                    background-color: #ffffff !important;
+                    color: #000000 !important;
+                }
+            `;
+            document.head.appendChild(style);
+        },
+
+        enableAnimations() {
+            // Remove seizure safe styles
+            const seizureStyles = document.getElementById('seizure-safe-styles');
+            const motionStyles = document.getElementById('reduced-motion-styles');
+            const colorStyles = document.getElementById('safe-colors-styles');
+            
+            if (seizureStyles) seizureStyles.remove();
+            if (motionStyles) motionStyles.remove();
+            if (colorStyles) colorStyles.remove();
+        },
+
+        toggleVisionImpaired(enabled) {
+            if (enabled) {
+                document.body.classList.add('accessibility-vision-impaired');
+                localStorage.setItem('accessibility-vision-impaired', 'true');
+            } else {
+                document.body.classList.remove('accessibility-vision-impaired');
+                localStorage.setItem('accessibility-vision-impaired', 'false');
+            }
         },
 
         resetAll() {
             // Remove all classes
             document.body.classList.remove(
-                'accessibility-high-contrast',
-                'accessibility-negative-contrast',
-                'accessibility-grayscale',
-                'accessibility-light-bg',
-                'accessibility-highlight-links',
-                'accessibility-reading-guide',
-                'accessibility-big-cursor'
+                'accessibility-seizure-safe',
+                'accessibility-vision-impaired'
             );
             
-            // Reset styles
-            document.documentElement.style.fontSize = '100%';
-            document.body.style.fontFamily = '';
+            // Reset toggles
+            document.getElementById('seizure-safe-toggle').checked = false;
+            document.getElementById('vision-impaired-toggle').checked = false;
+            
+            // Remove styles
+            this.enableAnimations();
             
             // Clear localStorage
-            localStorage.removeItem('accessibility-font-size');
-            localStorage.removeItem('accessibility-high-contrast');
-            localStorage.removeItem('accessibility-negative-contrast');
-            localStorage.removeItem('accessibility-grayscale');
-            localStorage.removeItem('accessibility-light-bg');
-            localStorage.removeItem('accessibility-highlight-links');
-            localStorage.removeItem('accessibility-reading-guide');
-            localStorage.removeItem('accessibility-big-cursor');
-            localStorage.removeItem('accessibility-font-family');
-            
-            // Remove reading guide
-            this.removeReadingGuide();
+            localStorage.removeItem('accessibility-seizure-safe');
+            localStorage.removeItem('accessibility-vision-impaired');
         },
 
         loadSettings() {
-            // Load font size
-            const fontSize = localStorage.getItem('accessibility-font-size');
-            if (fontSize) {
-                document.documentElement.style.fontSize = fontSize + '%';
+            // Load seizure safe setting
+            const seizureSafe = localStorage.getItem('accessibility-seizure-safe');
+            if (seizureSafe === 'true') {
+                document.getElementById('seizure-safe-toggle').checked = true;
+                this.toggleSeizureSafe(true);
             }
 
-            // Load font family
-            const fontFamily = localStorage.getItem('accessibility-font-family');
-            if (fontFamily) {
-                this.changeFontFamily(fontFamily);
-            }
-
-            // Load other settings
-            const settings = [
-                'accessibility-high-contrast',
-                'accessibility-negative-contrast',
-                'accessibility-grayscale',
-                'accessibility-light-bg',
-                'accessibility-highlight-links',
-                'accessibility-big-cursor'
-            ];
-
-            settings.forEach(setting => {
-                if (localStorage.getItem(setting) === 'true') {
-                    document.body.classList.add(setting);
-                }
-            });
-
-            // Load reading guide
-            if (localStorage.getItem('accessibility-reading-guide') === 'true') {
-                document.body.classList.add('accessibility-reading-guide');
-                this.createReadingGuide();
+            // Load vision impaired setting
+            const visionImpaired = localStorage.getItem('accessibility-vision-impaired');
+            if (visionImpaired === 'true') {
+                document.getElementById('vision-impaired-toggle').checked = true;
+                this.toggleVisionImpaired(true);
             }
         }
     };
