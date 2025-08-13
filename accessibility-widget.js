@@ -401,18 +401,16 @@
             this.focusLight.style.cssText = `
                 position: fixed;
                 width: 100%;
-                height: 200px;
+                height: 150px;
                 background: linear-gradient(to bottom, 
-                    rgba(255, 255, 255, 0.95) 0%, 
-                    rgba(255, 255, 255, 0.9) 50%, 
-                    rgba(255, 255, 255, 0.95) 100%);
+                    rgba(255, 255, 255, 0.3) 0%, 
+                    rgba(255, 255, 255, 0.2) 50%, 
+                    rgba(255, 255, 255, 0.3) 100%);
                 pointer-events: none;
                 z-index: 9999;
-                transition: all 0.2s ease;
-                box-shadow: 
-                    inset 0 10px 20px rgba(255, 255, 255, 0.3),
-                    inset 0 -10px 20px rgba(255, 255, 255, 0.3);
-                mix-blend-mode: screen;
+                transition: all 0.15s ease;
+                border-top: 2px solid rgba(255, 255, 255, 0.5);
+                border-bottom: 2px solid rgba(255, 255, 255, 0.5);
             `;
             
             document.body.appendChild(this.focusLight);
@@ -421,7 +419,7 @@
 
         updateFocusLight(x, y) {
             if (this.focusLight) {
-                this.focusLight.style.top = (y - 100) + 'px';
+                this.focusLight.style.top = (y - 75) + 'px';
             }
         },
 
@@ -439,7 +437,6 @@
             style.id = 'adhd-styles';
             style.textContent = `
                 body:not(access-widget-ui):not([data-acsb]) {
-                    filter: blur(1px) brightness(0.8);
                     font-family: Arial, Helvetica, sans-serif !important;
                 }
                 
@@ -462,13 +459,20 @@
                     margin-bottom: 1em !important;
                 }
                 
+                /* Apply blur and dimming to everything EXCEPT the accessibility elements */
+                body:not(access-widget-ui):not([data-acsb]) > *:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) {
+                    filter: blur(1px) brightness(0.8) !important;
+                }
+                
+                /* Ensure accessibility elements are not affected */
+                #accessibility-widget,
+                #accessibility-panel,
                 #adhd-spotlight {
-                    position: fixed !important;
-                    z-index: 9999 !important;
-                    pointer-events: none !important;
                     filter: none !important;
                 }
                 
+                #accessibility-widget *,
+                #accessibility-panel *,
                 #adhd-spotlight * {
                     filter: none !important;
                 }
