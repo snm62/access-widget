@@ -31,6 +31,7 @@
             this.bindEvents();
             this.loadSettings();
             this.focusLight = null;
+            this.overlay = null;
         },
 
         createWidget() {
@@ -260,14 +261,10 @@
 
         toggleSeizureSafe(enabled) {
             if (enabled) {
-                // Apply seizure safe features based on the screenshots
                 document.body.classList.add('acsb-seizure-safe');
                 localStorage.setItem('accessibility-seizure-safe', 'true');
-                
-                // Apply the exact CSS rules from the screenshots
                 this.applySeizureSafeStyles();
             } else {
-                // Remove seizure safe features
                 document.body.classList.remove('acsb-seizure-safe');
                 localStorage.setItem('accessibility-seizure-safe', 'false');
                 this.removeSeizureSafeStyles();
@@ -275,13 +272,11 @@
         },
 
         applySeizureSafeStyles() {
-            // Remove any existing styles first
             this.removeSeizureSafeStyles();
             
             const style = document.createElement('style');
             style.id = 'seizure-safe-styles';
             style.textContent = `
-                /* Based on the screenshots - exact implementation */
                 *:not(access-widget-ui):not([data-acsb]) {
                     transition: none !important;
                     animation-fill-mode: forwards !important;
@@ -289,7 +284,6 @@
                     animation-duration: 0.01s !important;
                 }
                 
-                /* Disable all animations and transitions */
                 *, *::before, *::after {
                     animation-duration: 0.01ms !important;
                     animation-iteration-count: 1 !important;
@@ -297,7 +291,6 @@
                     scroll-behavior: auto !important;
                 }
                 
-                /* Remove any flashing or blinking */
                 @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 1; } }
                 @keyframes flash { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 1; } }
                 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 1; } }
@@ -306,7 +299,6 @@
                 @keyframes slideIn { from { transform: none; } to { transform: none; } }
                 @keyframes slideOut { from { transform: none; } to { transform: none; } }
                 
-                /* Safe color combinations - high contrast black and white */
                 body:not(access-widget-ui):not([data-acsb]) {
                     color: #000000 !important;
                     background-color: #ffffff !important;
@@ -325,7 +317,6 @@
                     color: #551A8B !important;
                 }
                 
-                /* Remove any bright or flashing colors */
                 body:not(access-widget-ui):not([data-acsb]) img,
                 body:not(access-widget-ui):not([data-acsb]) video,
                 body:not(access-widget-ui):not([data-acsb]) canvas {
@@ -360,7 +351,6 @@
             const style = document.createElement('style');
             style.id = 'vision-impaired-styles';
             style.textContent = `
-                /* Vision impaired styles based on screenshots */
                 body:not(access-widget-ui):not([data-acsb]) {
                     zoom: 1.16 !important;
                 }
@@ -369,7 +359,6 @@
                     font-family: Arial, Helvetica, sans-serif !important;
                 }
                 
-                /* High contrast */
                 body:not(access-widget-ui):not([data-acsb]) {
                     color: #000000 !important;
                     background-color: #ffffff !important;
@@ -395,35 +384,53 @@
                 document.body.classList.add('acsb-adhd-profile');
                 localStorage.setItem('accessibility-adhd', 'true');
                 this.applyADHDStyles();
-                this.createFocusLight();
+                this.createSpotlightFocus();
             } else {
                 document.body.classList.remove('acsb-adhd-profile');
                 localStorage.setItem('accessibility-adhd', 'false');
                 this.removeADHDStyles();
-                this.removeFocusLight();
+                this.removeSpotlightFocus();
             }
         },
 
-        createFocusLight() {
-            // Remove existing focus light if any
-            this.removeFocusLight();
+        createSpotlightFocus() {
+            // Remove existing elements
+            this.removeSpotlightFocus();
             
-            // Create focus light element
-            this.focusLight = document.createElement('div');
-            this.focusLight.id = 'adhd-focus-light';
-            this.focusLight.style.cssText = `
+            // Create dark overlay
+            this.overlay = document.createElement('div');
+            this.overlay.id = 'adhd-overlay';
+            this.overlay.style.cssText = `
                 position: fixed;
-                width: 200px;
-                height: 200px;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.3) 70%, transparent 100%);
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 9998;
                 pointer-events: none;
-                z-index: 9999;
-                transition: all 0.1s ease;
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-                mix-blend-mode: screen;
+                backdrop-filter: blur(3px);
             `;
             
+            // Create spotlight hole
+            this.focusLight = document.createElement('div');
+            this.focusLight.id = 'adhd-spotlight';
+            this.focusLight.style.cssText = `
+                position: fixed;
+                width: 300px;
+                height: 300px;
+                border-radius: 50%;
+                background: radial-gradient(circle, transparent 0%, transparent 60%, rgba(0, 0, 0, 0.8) 100%);
+                pointer-events: none;
+                z-index: 9999;
+                transition: all 0.2s ease;
+                box-shadow: 
+                    0 0 0 9999px rgba(0, 0, 0, 0.8),
+                    inset 0 0 50px rgba(255, 255, 255, 0.1);
+                mix-blend-mode: multiply;
+            `;
+            
+            document.body.appendChild(this.overlay);
             document.body.appendChild(this.focusLight);
             
             // Set initial position
@@ -432,12 +439,16 @@
 
         updateFocusLight(x, y) {
             if (this.focusLight) {
-                this.focusLight.style.left = (x - 100) + 'px';
-                this.focusLight.style.top = (y - 100) + 'px';
+                this.focusLight.style.left = (x - 150) + 'px';
+                this.focusLight.style.top = (y - 150) + 'px';
             }
         },
 
-        removeFocusLight() {
+        removeSpotlightFocus() {
+            if (this.overlay) {
+                this.overlay.remove();
+                this.overlay = null;
+            }
             if (this.focusLight) {
                 this.focusLight.remove();
                 this.focusLight = null;
@@ -450,12 +461,10 @@
             const style = document.createElement('style');
             style.id = 'adhd-styles';
             style.textContent = `
-                /* ADHD friendly styles - reduce distractions */
                 body:not(access-widget-ui):not([data-acsb]) {
                     font-family: Arial, Helvetica, sans-serif !important;
                 }
                 
-                /* Remove background images and videos */
                 body:not(access-widget-ui):not([data-acsb]) * {
                     background-image: none !important;
                 }
@@ -464,7 +473,6 @@
                     display: none !important;
                 }
                 
-                /* Focus on essential elements */
                 body:not(access-widget-ui):not([data-acsb]) p,
                 body:not(access-widget-ui):not([data-acsb]) h1,
                 body:not(access-widget-ui):not([data-acsb]) h2,
@@ -476,8 +484,13 @@
                     margin-bottom: 1em !important;
                 }
                 
-                /* Focus light styles */
-                #adhd-focus-light {
+                #adhd-overlay {
+                    position: fixed !important;
+                    z-index: 9998 !important;
+                    pointer-events: none !important;
+                }
+                
+                #adhd-spotlight {
                     position: fixed !important;
                     z-index: 9999 !important;
                     pointer-events: none !important;
@@ -511,7 +524,6 @@
             const style = document.createElement('style');
             style.id = 'cognitive-styles';
             style.textContent = `
-                /* Cognitive disability styles */
                 body:not(access-widget-ui):not([data-acsb]) {
                     font-family: Arial, Helvetica, sans-serif !important;
                     font-size: 18px !important;
@@ -527,7 +539,6 @@
                     color: #0000EE !important;
                 }
                 
-                /* Clear focus indicators */
                 body:not(access-widget-ui):not([data-acsb]) *:focus {
                     outline: 3px solid #0000EE !important;
                     outline-offset: 2px !important;
@@ -544,7 +555,6 @@
         },
 
         resetAll() {
-            // Remove all classes
             document.body.classList.remove(
                 'acsb-seizure-safe',
                 'acsb-vision-profile',
@@ -552,22 +562,17 @@
                 'acsb-cognitive-profile'
             );
             
-            // Reset all toggles
             document.getElementById('seizure-safe-toggle').checked = false;
             document.getElementById('vision-impaired-toggle').checked = false;
             document.getElementById('adhd-toggle').checked = false;
             document.getElementById('cognitive-toggle').checked = false;
             
-            // Remove all styles
             this.removeSeizureSafeStyles();
             this.removeVisionImpairedStyles();
             this.removeADHDStyles();
             this.removeCognitiveStyles();
+            this.removeSpotlightFocus();
             
-            // Remove focus light
-            this.removeFocusLight();
-            
-            // Clear localStorage
             localStorage.removeItem('accessibility-seizure-safe');
             localStorage.removeItem('accessibility-vision-impaired');
             localStorage.removeItem('accessibility-adhd');
@@ -575,28 +580,24 @@
         },
 
         loadSettings() {
-            // Load seizure safe setting
             const seizureSafe = localStorage.getItem('accessibility-seizure-safe');
             if (seizureSafe === 'true') {
                 document.getElementById('seizure-safe-toggle').checked = true;
                 this.toggleSeizureSafe(true);
             }
 
-            // Load vision impaired setting
             const visionImpaired = localStorage.getItem('accessibility-vision-impaired');
             if (visionImpaired === 'true') {
                 document.getElementById('vision-impaired-toggle').checked = true;
                 this.toggleVisionImpaired(true);
             }
 
-            // Load ADHD setting
             const adhd = localStorage.getItem('accessibility-adhd');
             if (adhd === 'true') {
                 document.getElementById('adhd-toggle').checked = true;
                 this.toggleADHD(true);
             }
 
-            // Load cognitive setting
             const cognitive = localStorage.getItem('accessibility-cognitive');
             if (cognitive === 'true') {
                 document.getElementById('cognitive-toggle').checked = true;
@@ -605,7 +606,6 @@
         }
     };
 
-    // Initialize when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => AccessibilityWidget.init());
     } else {
