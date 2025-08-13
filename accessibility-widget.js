@@ -3,7 +3,7 @@
     
     // Configuration
     const config = {
-        position: 'bottom-left', // Changed to bottom-left
+        position: 'bottom-right',
         theme: 'light',
         language: 'en',
         features: {
@@ -30,6 +30,7 @@
             this.createPanel();
             this.bindEvents();
             this.loadSettings();
+            this.focusLight = null;
         },
 
         createWidget() {
@@ -114,22 +115,7 @@
                                 </div>
                             </div>
                             <p class="profile-description">Enhances website's visuals</p>
-                        </div>
-                    </div>
-                    
-                    <div class="accessibility-section">
-                        <div class="profile-item">
-                            <div class="profile-header">
-                                <h4>Cognitive Disability Profile</h4>
-                                <div class="toggle-switch">
-                                    <input type="checkbox" id="cognitive-toggle" aria-label="Toggle Cognitive Disability Profile">
-                                    <label for="cognitive-toggle">
-                                        <span class="toggle-off">OFF</span>
-                                        <span class="toggle-on">ON</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <p class="profile-description">Assists with reading and focusing</p>
+                            <p class="profile-details">This profile adjusts the website, so that it is accessible to the majority of visual impairments such as Degrading Eyesight, Tunnel Vision, Cataract, Glaucoma, and others.</p>
                         </div>
                     </div>
                     
@@ -145,14 +131,48 @@
                                     </label>
                                 </div>
                             </div>
-                            <p class="profile-description">Reduces distractions and helps focus</p>
+                            <p class="profile-description">More focus & fewer distractions</p>
+                            <p class="profile-details">This profile significantly reduces distractions, to help people with ADHD and Neurodevelopmental disorders browse, read, and focus on the essential elements of the website more easily.</p>
                         </div>
                     </div>
                     
                     <div class="accessibility-section">
                         <div class="profile-item">
                             <div class="profile-header">
-                                <h4>Blind Users Profile</h4>
+                                <h4>Cognitive Disability Profile</h4>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="cognitive-toggle" aria-label="Toggle Cognitive Disability Profile">
+                                    <label for="cognitive-toggle">
+                                        <span class="toggle-off">OFF</span>
+                                        <span class="toggle-on">ON</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="profile-description">Assists with reading & focusing</p>
+                            <p class="profile-details">This profile provides various assistive features to help users with cognitive disabilities such as Autism, Dyslexia, CVA, and others, to focus on the essential elements of the website more easily.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accessibility-section">
+                        <div class="profile-item">
+                            <div class="profile-header">
+                                <h4>Keyboard Navigation (Motor)</h4>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="keyboard-toggle" aria-label="Toggle Keyboard Navigation">
+                                    <label for="keyboard-toggle">
+                                        <span class="toggle-off">OFF</span>
+                                        <span class="toggle-on">ON</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="profile-description">Use website with the keyboard</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accessibility-section">
+                        <div class="profile-item">
+                            <div class="profile-header">
+                                <h4>Blind Users (Screen Reader)</h4>
                                 <div class="toggle-switch">
                                     <input type="checkbox" id="blind-toggle" aria-label="Toggle Blind Users Profile">
                                     <label for="blind-toggle">
@@ -161,7 +181,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <p class="profile-description">Compatible with screen readers</p>
+                            <p class="profile-description">Optimize website for screen-readers</p>
                         </div>
                     </div>
                 </div>
@@ -195,6 +215,16 @@
                 this.toggleVisionImpaired(e.target.checked);
             });
 
+            // ADHD Friendly Profile
+            document.getElementById('adhd-toggle').addEventListener('change', (e) => {
+                this.toggleADHD(e.target.checked);
+            });
+
+            // Cognitive Disability Profile
+            document.getElementById('cognitive-toggle').addEventListener('change', (e) => {
+                this.toggleCognitive(e.target.checked);
+            });
+
             // Close panel when clicking outside
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('#accessibility-widget') && 
@@ -207,6 +237,13 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     this.hidePanel();
+                }
+            });
+
+            // Mouse movement for focus light
+            document.addEventListener('mousemove', (e) => {
+                if (this.focusLight && document.body.classList.contains('acsb-adhd-profile')) {
+                    this.updateFocusLight(e.clientX, e.clientY);
                 }
             });
         },
@@ -223,29 +260,36 @@
 
         toggleSeizureSafe(enabled) {
             if (enabled) {
-                // Apply seizure safe features
-                document.body.classList.add('accessibility-seizure-safe');
+                // Apply seizure safe features based on the screenshots
+                document.body.classList.add('acsb-seizure-safe');
                 localStorage.setItem('accessibility-seizure-safe', 'true');
                 
-                // Disable animations and reduce motion
-                this.disableAnimations();
-                this.reduceMotion();
-                this.safeColors();
+                // Apply the exact CSS rules from the screenshots
+                this.applySeizureSafeStyles();
             } else {
                 // Remove seizure safe features
-                document.body.classList.remove('accessibility-seizure-safe');
+                document.body.classList.remove('acsb-seizure-safe');
                 localStorage.setItem('accessibility-seizure-safe', 'false');
-                
-                // Re-enable animations
-                this.enableAnimations();
+                this.removeSeizureSafeStyles();
             }
         },
 
-        disableAnimations() {
-            // Disable CSS animations and transitions
+        applySeizureSafeStyles() {
+            // Remove any existing styles first
+            this.removeSeizureSafeStyles();
+            
             const style = document.createElement('style');
             style.id = 'seizure-safe-styles';
             style.textContent = `
+                /* Based on the screenshots - exact implementation */
+                *:not(access-widget-ui):not([data-acsb]) {
+                    transition: none !important;
+                    animation-fill-mode: forwards !important;
+                    animation-iteration-count: 1 !important;
+                    animation-duration: 0.01s !important;
+                }
+                
+                /* Disable all animations and transitions */
                 *, *::before, *::after {
                     animation-duration: 0.01ms !important;
                     animation-iteration-count: 1 !important;
@@ -253,103 +297,281 @@
                     scroll-behavior: auto !important;
                 }
                 
-                /* Disable flashing elements */
-                * {
-                    animation: none !important;
-                    transition: none !important;
-                }
-                
-                /* Remove any blinking or flashing */
+                /* Remove any flashing or blinking */
                 @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 1; } }
                 @keyframes flash { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 1; } }
                 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 1; } }
-            `;
-            document.head.appendChild(style);
-        },
-
-        reduceMotion() {
-            // Add reduced motion support
-            const style = document.createElement('style');
-            style.id = 'reduced-motion-styles';
-            style.textContent = `
-                @media (prefers-reduced-motion: reduce) {
-                    *, *::before, *::after {
-                        animation-duration: 0.01ms !important;
-                        animation-iteration-count: 1 !important;
-                        transition-duration: 0.01ms !important;
-                        scroll-behavior: auto !important;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        },
-
-        safeColors() {
-            // Apply safe color combinations
-            const style = document.createElement('style');
-            style.id = 'safe-colors-styles';
-            style.textContent = `
-                .accessibility-seizure-safe {
-                    /* Use high contrast, non-flashing colors */
+                @keyframes fadeIn { from { opacity: 1; } to { opacity: 1; } }
+                @keyframes fadeOut { from { opacity: 1; } to { opacity: 1; } }
+                @keyframes slideIn { from { transform: none; } to { transform: none; } }
+                @keyframes slideOut { from { transform: none; } to { transform: none; } }
+                
+                /* Safe color combinations - high contrast black and white */
+                body:not(access-widget-ui):not([data-acsb]) {
                     color: #000000 !important;
                     background-color: #ffffff !important;
                 }
                 
-                .accessibility-seizure-safe a {
+                body:not(access-widget-ui):not([data-acsb]) * {
+                    color: #000000 !important;
+                    background-color: #ffffff !important;
+                }
+                
+                body:not(access-widget-ui):not([data-acsb]) a {
                     color: #0000EE !important;
                 }
                 
-                .accessibility-seizure-safe a:visited {
+                body:not(access-widget-ui):not([data-acsb]) a:visited {
                     color: #551A8B !important;
                 }
                 
-                /* Remove any bright flashing colors */
-                .accessibility-seizure-safe * {
-                    background-color: #ffffff !important;
-                    color: #000000 !important;
+                /* Remove any bright or flashing colors */
+                body:not(access-widget-ui):not([data-acsb]) img,
+                body:not(access-widget-ui):not([data-acsb]) video,
+                body:not(access-widget-ui):not([data-acsb]) canvas {
+                    filter: grayscale(100%) !important;
                 }
             `;
             document.head.appendChild(style);
         },
 
-        enableAnimations() {
-            // Remove seizure safe styles
-            const seizureStyles = document.getElementById('seizure-safe-styles');
-            const motionStyles = document.getElementById('reduced-motion-styles');
-            const colorStyles = document.getElementById('safe-colors-styles');
-            
-            if (seizureStyles) seizureStyles.remove();
-            if (motionStyles) motionStyles.remove();
-            if (colorStyles) colorStyles.remove();
+        removeSeizureSafeStyles() {
+            const style = document.getElementById('seizure-safe-styles');
+            if (style) {
+                style.remove();
+            }
         },
 
         toggleVisionImpaired(enabled) {
             if (enabled) {
-                document.body.classList.add('accessibility-vision-impaired');
+                document.body.classList.add('acsb-vision-profile');
                 localStorage.setItem('accessibility-vision-impaired', 'true');
+                this.applyVisionImpairedStyles();
             } else {
-                document.body.classList.remove('accessibility-vision-impaired');
+                document.body.classList.remove('acsb-vision-profile');
                 localStorage.setItem('accessibility-vision-impaired', 'false');
+                this.removeVisionImpairedStyles();
+            }
+        },
+
+        applyVisionImpairedStyles() {
+            this.removeVisionImpairedStyles();
+            
+            const style = document.createElement('style');
+            style.id = 'vision-impaired-styles';
+            style.textContent = `
+                /* Vision impaired styles based on screenshots */
+                body:not(access-widget-ui):not([data-acsb]) {
+                    zoom: 1.16 !important;
+                }
+                
+                body:not(access-widget-ui):not([data-acsb]) * {
+                    font-family: Arial, Helvetica, sans-serif !important;
+                }
+                
+                /* High contrast */
+                body:not(access-widget-ui):not([data-acsb]) {
+                    color: #000000 !important;
+                    background-color: #ffffff !important;
+                }
+                
+                body:not(access-widget-ui):not([data-acsb]) a {
+                    color: #0000EE !important;
+                    text-decoration: underline !important;
+                }
+            `;
+            document.head.appendChild(style);
+        },
+
+        removeVisionImpairedStyles() {
+            const style = document.getElementById('vision-impaired-styles');
+            if (style) {
+                style.remove();
+            }
+        },
+
+        toggleADHD(enabled) {
+            if (enabled) {
+                document.body.classList.add('acsb-adhd-profile');
+                localStorage.setItem('accessibility-adhd', 'true');
+                this.applyADHDStyles();
+                this.createFocusLight();
+            } else {
+                document.body.classList.remove('acsb-adhd-profile');
+                localStorage.setItem('accessibility-adhd', 'false');
+                this.removeADHDStyles();
+                this.removeFocusLight();
+            }
+        },
+
+        createFocusLight() {
+            // Remove existing focus light if any
+            this.removeFocusLight();
+            
+            // Create focus light element
+            this.focusLight = document.createElement('div');
+            this.focusLight.id = 'adhd-focus-light';
+            this.focusLight.style.cssText = `
+                position: fixed;
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.3) 70%, transparent 100%);
+                pointer-events: none;
+                z-index: 9999;
+                transition: all 0.1s ease;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+                mix-blend-mode: screen;
+            `;
+            
+            document.body.appendChild(this.focusLight);
+            
+            // Set initial position
+            this.updateFocusLight(window.innerWidth / 2, window.innerHeight / 2);
+        },
+
+        updateFocusLight(x, y) {
+            if (this.focusLight) {
+                this.focusLight.style.left = (x - 100) + 'px';
+                this.focusLight.style.top = (y - 100) + 'px';
+            }
+        },
+
+        removeFocusLight() {
+            if (this.focusLight) {
+                this.focusLight.remove();
+                this.focusLight = null;
+            }
+        },
+
+        applyADHDStyles() {
+            this.removeADHDStyles();
+            
+            const style = document.createElement('style');
+            style.id = 'adhd-styles';
+            style.textContent = `
+                /* ADHD friendly styles - reduce distractions */
+                body:not(access-widget-ui):not([data-acsb]) {
+                    font-family: Arial, Helvetica, sans-serif !important;
+                }
+                
+                /* Remove background images and videos */
+                body:not(access-widget-ui):not([data-acsb]) * {
+                    background-image: none !important;
+                }
+                
+                body:not(access-widget-ui):not([data-acsb]) video {
+                    display: none !important;
+                }
+                
+                /* Focus on essential elements */
+                body:not(access-widget-ui):not([data-acsb]) p,
+                body:not(access-widget-ui):not([data-acsb]) h1,
+                body:not(access-widget-ui):not([data-acsb]) h2,
+                body:not(access-widget-ui):not([data-acsb]) h3,
+                body:not(access-widget-ui):not([data-acsb]) h4,
+                body:not(access-widget-ui):not([data-acsb]) h5,
+                body:not(access-widget-ui):not([data-acsb]) h6 {
+                    line-height: 1.6 !important;
+                    margin-bottom: 1em !important;
+                }
+                
+                /* Focus light styles */
+                #adhd-focus-light {
+                    position: fixed !important;
+                    z-index: 9999 !important;
+                    pointer-events: none !important;
+                }
+            `;
+            document.head.appendChild(style);
+        },
+
+        removeADHDStyles() {
+            const style = document.getElementById('adhd-styles');
+            if (style) {
+                style.remove();
+            }
+        },
+
+        toggleCognitive(enabled) {
+            if (enabled) {
+                document.body.classList.add('acsb-cognitive-profile');
+                localStorage.setItem('accessibility-cognitive', 'true');
+                this.applyCognitiveStyles();
+            } else {
+                document.body.classList.remove('acsb-cognitive-profile');
+                localStorage.setItem('accessibility-cognitive', 'false');
+                this.removeCognitiveStyles();
+            }
+        },
+
+        applyCognitiveStyles() {
+            this.removeCognitiveStyles();
+            
+            const style = document.createElement('style');
+            style.id = 'cognitive-styles';
+            style.textContent = `
+                /* Cognitive disability styles */
+                body:not(access-widget-ui):not([data-acsb]) {
+                    font-family: Arial, Helvetica, sans-serif !important;
+                    font-size: 18px !important;
+                    line-height: 1.8 !important;
+                }
+                
+                body:not(access-widget-ui):not([data-acsb]) p {
+                    margin-bottom: 1.5em !important;
+                }
+                
+                body:not(access-widget-ui):not([data-acsb]) a {
+                    text-decoration: underline !important;
+                    color: #0000EE !important;
+                }
+                
+                /* Clear focus indicators */
+                body:not(access-widget-ui):not([data-acsb]) *:focus {
+                    outline: 3px solid #0000EE !important;
+                    outline-offset: 2px !important;
+                }
+            `;
+            document.head.appendChild(style);
+        },
+
+        removeCognitiveStyles() {
+            const style = document.getElementById('cognitive-styles');
+            if (style) {
+                style.remove();
             }
         },
 
         resetAll() {
             // Remove all classes
             document.body.classList.remove(
-                'accessibility-seizure-safe',
-                'accessibility-vision-impaired'
+                'acsb-seizure-safe',
+                'acsb-vision-profile',
+                'acsb-adhd-profile',
+                'acsb-cognitive-profile'
             );
             
-            // Reset toggles
+            // Reset all toggles
             document.getElementById('seizure-safe-toggle').checked = false;
             document.getElementById('vision-impaired-toggle').checked = false;
+            document.getElementById('adhd-toggle').checked = false;
+            document.getElementById('cognitive-toggle').checked = false;
             
-            // Remove styles
-            this.enableAnimations();
+            // Remove all styles
+            this.removeSeizureSafeStyles();
+            this.removeVisionImpairedStyles();
+            this.removeADHDStyles();
+            this.removeCognitiveStyles();
+            
+            // Remove focus light
+            this.removeFocusLight();
             
             // Clear localStorage
             localStorage.removeItem('accessibility-seizure-safe');
             localStorage.removeItem('accessibility-vision-impaired');
+            localStorage.removeItem('accessibility-adhd');
+            localStorage.removeItem('accessibility-cognitive');
         },
 
         loadSettings() {
@@ -365,6 +587,20 @@
             if (visionImpaired === 'true') {
                 document.getElementById('vision-impaired-toggle').checked = true;
                 this.toggleVisionImpaired(true);
+            }
+
+            // Load ADHD setting
+            const adhd = localStorage.getItem('accessibility-adhd');
+            if (adhd === 'true') {
+                document.getElementById('adhd-toggle').checked = true;
+                this.toggleADHD(true);
+            }
+
+            // Load cognitive setting
+            const cognitive = localStorage.getItem('accessibility-cognitive');
+            if (cognitive === 'true') {
+                document.getElementById('cognitive-toggle').checked = true;
+                this.toggleCognitive(true);
             }
         }
     };
