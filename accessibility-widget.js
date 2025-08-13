@@ -31,7 +31,6 @@
             this.bindEvents();
             this.loadSettings();
             this.focusLight = null;
-            this.overlay = null;
         },
 
         createWidget() {
@@ -394,61 +393,39 @@
         },
 
         createSpotlightFocus() {
-            // Remove existing elements
             this.removeSpotlightFocus();
             
-            // Create dark overlay
-            this.overlay = document.createElement('div');
-            this.overlay.id = 'adhd-overlay';
-            this.overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                z-index: 9998;
-                pointer-events: none;
-                backdrop-filter: blur(3px);
-            `;
-            
-            // Create spotlight hole
+            // Create rectangular spotlight
             this.focusLight = document.createElement('div');
             this.focusLight.id = 'adhd-spotlight';
             this.focusLight.style.cssText = `
                 position: fixed;
-                width: 300px;
-                height: 300px;
-                border-radius: 50%;
-                background: radial-gradient(circle, transparent 0%, transparent 60%, rgba(0, 0, 0, 0.8) 100%);
+                width: 100%;
+                height: 200px;
+                background: linear-gradient(to bottom, 
+                    rgba(255, 255, 255, 0.95) 0%, 
+                    rgba(255, 255, 255, 0.9) 50%, 
+                    rgba(255, 255, 255, 0.95) 100%);
                 pointer-events: none;
                 z-index: 9999;
                 transition: all 0.2s ease;
                 box-shadow: 
-                    0 0 0 9999px rgba(0, 0, 0, 0.8),
-                    inset 0 0 50px rgba(255, 255, 255, 0.1);
-                mix-blend-mode: multiply;
+                    inset 0 10px 20px rgba(255, 255, 255, 0.3),
+                    inset 0 -10px 20px rgba(255, 255, 255, 0.3);
+                mix-blend-mode: screen;
             `;
             
-            document.body.appendChild(this.overlay);
             document.body.appendChild(this.focusLight);
-            
-            // Set initial position
             this.updateFocusLight(window.innerWidth / 2, window.innerHeight / 2);
         },
 
         updateFocusLight(x, y) {
             if (this.focusLight) {
-                this.focusLight.style.left = (x - 150) + 'px';
-                this.focusLight.style.top = (y - 150) + 'px';
+                this.focusLight.style.top = (y - 100) + 'px';
             }
         },
 
         removeSpotlightFocus() {
-            if (this.overlay) {
-                this.overlay.remove();
-                this.overlay = null;
-            }
             if (this.focusLight) {
                 this.focusLight.remove();
                 this.focusLight = null;
@@ -462,6 +439,7 @@
             style.id = 'adhd-styles';
             style.textContent = `
                 body:not(access-widget-ui):not([data-acsb]) {
+                    filter: blur(1px) brightness(0.8);
                     font-family: Arial, Helvetica, sans-serif !important;
                 }
                 
@@ -484,16 +462,15 @@
                     margin-bottom: 1em !important;
                 }
                 
-                #adhd-overlay {
-                    position: fixed !important;
-                    z-index: 9998 !important;
-                    pointer-events: none !important;
-                }
-                
                 #adhd-spotlight {
                     position: fixed !important;
                     z-index: 9999 !important;
                     pointer-events: none !important;
+                    filter: none !important;
+                }
+                
+                #adhd-spotlight * {
+                    filter: none !important;
                 }
             `;
             document.head.appendChild(style);
