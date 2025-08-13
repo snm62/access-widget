@@ -26,6 +26,12 @@
     // Accessibility features implementation
     const AccessibilityWidget = {
         init() {
+            // Clean up any existing elements first
+            const existingSpotlights = document.querySelectorAll('#adhd-spotlight, [id*="spotlight"], [class*="spotlight"]');
+            existingSpotlights.forEach(element => {
+                element.remove();
+            });
+            
             this.createWidget();
             this.createPanel();
             this.bindEvents();
@@ -389,6 +395,15 @@
                 localStorage.setItem('accessibility-adhd', 'false');
                 this.removeADHDStyles();
                 this.removeSpotlightFocus();
+                
+                // Extra cleanup for any leftover spotlight elements
+                const existingSpotlights = document.querySelectorAll('#adhd-spotlight, [id*="spotlight"], [class*="spotlight"]');
+                existingSpotlights.forEach(element => {
+                    element.remove();
+                });
+                
+                // Remove any CSS custom properties
+                document.documentElement.style.removeProperty('--spotlight-top');
             }
         },
 
@@ -433,83 +448,83 @@
             }
         },
 
-applyADHDStyles() {
-    this.removeADHDStyles();
-    
-    const style = document.createElement('style');
-    style.id = 'adhd-styles';
-    style.textContent = `
-        body:not(access-widget-ui):not([data-acsb]) {
-            font-family: Arial, Helvetica, sans-serif !important;
-        }
-        
-        body:not(access-widget-ui):not([data-acsb]) * {
-            background-image: none !important;
-        }
-        
-        body:not(access-widget-ui):not([data-acsb]) video {
-            display: none !important;
-        }
-        
-        body:not(access-widget-ui):not([data-acsb]) p,
-        body:not(access-widget-ui):not([data-acsb]) h1,
-        body:not(access-widget-ui):not([data-acsb]) h2,
-        body:not(access-widget-ui):not([data-acsb]) h3,
-        body:not(access-widget-ui):not([data-acsb]) h4,
-        body:not(access-widget-ui):not([data-acsb]) h5,
-        body:not(access-widget-ui):not([data-acsb]) h6 {
-            line-height: 1.6 !important;
-            margin-bottom: 1em !important;
-        }
-        
-        /* Create a mask that blurs everything except the spotlight area */
-        body:not(access-widget-ui):not([data-acsb]) {
-            position: relative;
-        }
-        
-        body:not(access-widget-ui):not([data-acsb])::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(1px);
-            z-index: 9998;
-            pointer-events: none;
-            mask: linear-gradient(to bottom, 
-                black 0%, 
-                black calc(var(--spotlight-top, 50%) - 75px), 
-                transparent calc(var(--spotlight-top, 50%) - 75px), 
-                transparent calc(var(--spotlight-top, 50%) + 75px), 
-                black calc(var(--spotlight-top, 50%) + 75px), 
-                black 100%);
-            -webkit-mask: linear-gradient(to bottom, 
-                black 0%, 
-                black calc(var(--spotlight-top, 50%) - 75px), 
-                transparent calc(var(--spotlight-top, 50%) - 75px), 
-                transparent calc(var(--spotlight-top, 50%) + 75px), 
-                black calc(var(--spotlight-top, 50%) + 75px), 
-                black 100%);
-        }
-        
-        /* Ensure accessibility elements are not affected */
-        #accessibility-widget,
-        #accessibility-panel,
-        #adhd-spotlight {
-            filter: none !important;
-            z-index: 9999 !important;
-        }
-        
-        #accessibility-widget *,
-        #accessibility-panel *,
-        #adhd-spotlight * {
-            filter: none !important;
-        }
-    `;
-    document.head.appendChild(style);
-},
+        applyADHDStyles() {
+            this.removeADHDStyles();
+            
+            const style = document.createElement('style');
+            style.id = 'adhd-styles';
+            style.textContent = `
+                body:not(access-widget-ui):not([data-acsb]) {
+                    font-family: Arial, Helvetica, sans-serif !important;
+                }
+                
+                body:not(access-widget-ui):not([data-acsb]) * {
+                    background-image: none !important;
+                }
+                
+                body:not(access-widget-ui):not([data-acsb]) video {
+                    display: none !important;
+                }
+                
+                body:not(access-widget-ui):not([data-acsb]) p,
+                body:not(access-widget-ui):not([data-acsb]) h1,
+                body:not(access-widget-ui):not([data-acsb]) h2,
+                body:not(access-widget-ui):not([data-acsb]) h3,
+                body:not(access-widget-ui):not([data-acsb]) h4,
+                body:not(access-widget-ui):not([data-acsb]) h5,
+                body:not(access-widget-ui):not([data-acsb]) h6 {
+                    line-height: 1.6 !important;
+                    margin-bottom: 1em !important;
+                }
+                
+                /* Create a mask that blurs everything except the spotlight area */
+                body:not(access-widget-ui):not([data-acsb]) {
+                    position: relative;
+                }
+                
+                body:not(access-widget-ui):not([data-acsb])::before {
+                    content: '';
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.2);
+                    backdrop-filter: blur(1px);
+                    z-index: 9998;
+                    pointer-events: none;
+                    mask: linear-gradient(to bottom, 
+                        black 0%, 
+                        black calc(var(--spotlight-top, 50%) - 75px), 
+                        transparent calc(var(--spotlight-top, 50%) - 75px), 
+                        transparent calc(var(--spotlight-top, 50%) + 75px), 
+                        black calc(var(--spotlight-top, 50%) + 75px), 
+                        black 100%);
+                    -webkit-mask: linear-gradient(to bottom, 
+                        black 0%, 
+                        black calc(var(--spotlight-top, 50%) - 75px), 
+                        transparent calc(var(--spotlight-top, 50%) - 75px), 
+                        transparent calc(var(--spotlight-top, 50%) + 75px), 
+                        black calc(var(--spotlight-top, 50%) + 75px), 
+                        black 100%);
+                }
+                
+                /* Ensure accessibility elements are not affected */
+                #accessibility-widget,
+                #accessibility-panel,
+                #adhd-spotlight {
+                    filter: none !important;
+                    z-index: 9999 !important;
+                }
+                
+                #accessibility-widget *,
+                #accessibility-panel *,
+                #adhd-spotlight * {
+                    filter: none !important;
+                }
+            `;
+            document.head.appendChild(style);
+        },
 
         removeADHDStyles() {
             const style = document.getElementById('adhd-styles');
@@ -584,6 +599,15 @@ applyADHDStyles() {
             this.removeADHDStyles();
             this.removeCognitiveStyles();
             this.removeSpotlightFocus();
+            
+            // Extra cleanup for any leftover spotlight elements
+            const existingSpotlights = document.querySelectorAll('#adhd-spotlight, [id*="spotlight"], [class*="spotlight"]');
+            existingSpotlights.forEach(element => {
+                element.remove();
+            });
+            
+            // Remove any CSS custom properties
+            document.documentElement.style.removeProperty('--spotlight-top');
             
             localStorage.removeItem('accessibility-seizure-safe');
             localStorage.removeItem('accessibility-vision-impaired');
