@@ -395,22 +395,21 @@
         createSpotlightFocus() {
             this.removeSpotlightFocus();
             
-            // Create rectangular spotlight
+            // Create spotlight border lines only
             this.focusLight = document.createElement('div');
             this.focusLight.id = 'adhd-spotlight';
             this.focusLight.style.cssText = `
                 position: fixed;
                 width: 100%;
                 height: 150px;
-                background: linear-gradient(to bottom, 
-                    rgba(255, 255, 255, 0.3) 0%, 
-                    rgba(255, 255, 255, 0.2) 50%, 
-                    rgba(255, 255, 255, 0.3) 100%);
                 pointer-events: none;
                 z-index: 9999;
                 transition: all 0.15s ease;
-                border-top: 2px solid rgba(255, 255, 255, 0.5);
-                border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+                border-top: 3px solid rgba(255, 255, 255, 0.8);
+                border-bottom: 3px solid rgba(255, 255, 255, 0.8);
+                box-shadow: 
+                    0 0 20px rgba(255, 255, 255, 0.3),
+                    inset 0 0 20px rgba(255, 255, 255, 0.1);
             `;
             
             document.body.appendChild(this.focusLight);
@@ -419,7 +418,11 @@
 
         updateFocusLight(x, y) {
             if (this.focusLight) {
-                this.focusLight.style.top = (y - 75) + 'px';
+                const top = y - 75;
+                this.focusLight.style.top = top + 'px';
+                
+                // Update CSS custom property for the mask
+                document.documentElement.style.setProperty('--spotlight-top', y + 'px');
             }
         },
 
@@ -459,9 +462,36 @@
                     margin-bottom: 1em !important;
                 }
                 
-                /* Apply blur and dimming to everything EXCEPT the accessibility elements */
-                body:not(access-widget-ui):not([data-acsb]) > *:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) {
-                    filter: blur(1px) brightness(0.8) !important;
+                /* Create a mask that blurs everything except the spotlight area */
+                body:not(access-widget-ui):not([data-acsb]) {
+                    position: relative;
+                }
+                
+                body:not(access-widget-ui):not([data-acsb])::before {
+                    content: '';
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.3);
+                    backdrop-filter: blur(2px);
+                    z-index: 9998;
+                    pointer-events: none;
+                    mask: linear-gradient(to bottom, 
+                        transparent 0%, 
+                        transparent calc(var(--spotlight-top, 50%) - 75px), 
+                        black calc(var(--spotlight-top, 50%) - 75px), 
+                        black calc(var(--spotlight-top, 50%) + 75px), 
+                        transparent calc(var(--spotlight-top, 50%) + 75px), 
+                        transparent 100%);
+                    -webkit-mask: linear-gradient(to bottom, 
+                        transparent 0%, 
+                        transparent calc(var(--spotlight-top, 50%) - 75px), 
+                        black calc(var(--spotlight-top, 50%) - 75px), 
+                        black calc(var(--spotlight-top, 50%) + 75px), 
+                        transparent calc(var(--spotlight-top, 50%) + 75px), 
+                        transparent 100%);
                 }
                 
                 /* Ensure accessibility elements are not affected */
@@ -469,6 +499,7 @@
                 #accessibility-panel,
                 #adhd-spotlight {
                     filter: none !important;
+                    z-index: 9999 !important;
                 }
                 
                 #accessibility-widget *,
