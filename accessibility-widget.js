@@ -276,137 +276,137 @@
             }
         },
 
-applySeizureSafeStyles() {
-    this.removeSeizureSafeStyles();
-    
-    const style = document.createElement('style');
-    style.id = 'seizure-safe-styles';
-    style.textContent = `
-        /* WCAG 2.1 Level AAA Compliance - Three Flashes or Below Threshold */
-        *:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) {
-            animation: none !important;
-            transition: none !important;
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            animation-fill-mode: forwards !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-        }
-        
-        /* Block all CSS animations and transitions */
-        *, *::before, *::after {
-            animation: none !important;
-            transition: none !important;
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-        }
-        
-        /* Override all keyframe animations to prevent flashing */
-        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 1; } }
-        @keyframes flash { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 1; } }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 1; } }
-        @keyframes fadeIn { from { opacity: 1; } to { opacity: 1; } }
-        @keyframes fadeOut { from { opacity: 1; } to { opacity: 1; } }
-        @keyframes slideIn { from { transform: none; } to { transform: none; } }
-        @keyframes slideOut { from { transform: none; } to { transform: none; } }
-        @keyframes bounce { 0%, 100% { transform: none; } 50% { transform: none; } }
-        @keyframes shake { 0%, 100% { transform: none; } 25%, 75% { transform: none; } }
-        @keyframes spin { from { transform: none; } to { transform: none; } }
-        @keyframes rotate { from { transform: none; } to { transform: none; } }
-        @keyframes scale { from { transform: none; } to { transform: none; } }
-        @keyframes move { from { transform: none; } to { transform: none; } }
-        
-        /* Prevent any hover effects that might cause flashing */
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) *:hover {
-            animation: none !important;
-            transition: none !important;
-        }
-        
-        /* Block any JavaScript animations */
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) * {
-            animation-play-state: paused !important;
-        }
-        
-        /* Ensure accessibility widget remains functional */
-        #accessibility-widget,
-        #accessibility-panel,
-        #adhd-spotlight {
-            animation: none !important;
-            transition: none !important;
-        }
-        
-        #accessibility-widget *,
-        #accessibility-panel *,
-        #adhd-spotlight * {
-            animation: none !important;
-            transition: none !important;
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Additional JavaScript to prevent any dynamic flashing
-    this.preventDynamicFlashing();
-},
-
-preventDynamicFlashing() {
-    // Override any existing animation/transition styles
-    const allElements = document.querySelectorAll('*:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight)');
-    allElements.forEach(element => {
-        element.style.animation = 'none';
-        element.style.transition = 'none';
-        element.style.animationDuration = '0.01ms';
-        element.style.transitionDuration = '0.01ms';
-        element.style.animationIterationCount = '1';
-    });
-    
-    // Monitor for dynamically added elements
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((node) => {
-                if (node.nodeType === 1 && !node.closest('#accessibility-widget, #accessibility-panel, #adhd-spotlight')) {
-                    node.style.animation = 'none';
-                    node.style.transition = 'none';
-                    node.style.animationDuration = '0.01ms';
-                    node.style.transitionDuration = '0.01ms';
-                    node.style.animationIterationCount = '1';
+        applySeizureSafeStyles() {
+            this.removeSeizureSafeStyles();
+            
+            const style = document.createElement('style');
+            style.id = 'seizure-safe-styles';
+            style.textContent = `
+                /* WCAG 2.1 Level AAA Compliance - Three Flashes or Below Threshold */
+                *:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) {
+                    animation: none !important;
+                    transition: none !important;
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    animation-fill-mode: forwards !important;
+                    transition-duration: 0.01ms !important;
+                    scroll-behavior: auto !important;
                 }
-            });
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-    
-    // Store observer for cleanup
-    this.seizureSafeObserver = observer;
-},
+                
+                /* Block all CSS animations and transitions */
+                *, *::before, *::after {
+                    animation: none !important;
+                    transition: none !important;
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                    scroll-behavior: auto !important;
+                }
+                
+                /* Override all keyframe animations to prevent flashing */
+                @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 1; } }
+                @keyframes flash { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 1; } }
+                @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 1; } }
+                @keyframes fadeIn { from { opacity: 1; } to { opacity: 1; } }
+                @keyframes fadeOut { from { opacity: 1; } to { opacity: 1; } }
+                @keyframes slideIn { from { transform: none; } to { transform: none; } }
+                @keyframes slideOut { from { transform: none; } to { transform: none; } }
+                @keyframes bounce { 0%, 100% { transform: none; } 50% { transform: none; } }
+                @keyframes shake { 0%, 100% { transform: none; } 25%, 75% { transform: none; } }
+                @keyframes spin { from { transform: none; } to { transform: none; } }
+                @keyframes rotate { from { transform: none; } to { transform: none; } }
+                @keyframes scale { from { transform: none; } to { transform: none; } }
+                @keyframes move { from { transform: none; } to { transform: none; } }
+                
+                /* Prevent any hover effects that might cause flashing */
+                body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) *:hover {
+                    animation: none !important;
+                    transition: none !important;
+                }
+                
+                /* Block any JavaScript animations */
+                body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) * {
+                    animation-play-state: paused !important;
+                }
+                
+                /* Ensure accessibility widget remains functional */
+                #accessibility-widget,
+                #accessibility-panel,
+                #adhd-spotlight {
+                    animation: none !important;
+                    transition: none !important;
+                }
+                
+                #accessibility-widget *,
+                #accessibility-panel *,
+                #adhd-spotlight * {
+                    animation: none !important;
+                    transition: none !important;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Additional JavaScript to prevent any dynamic flashing
+            this.preventDynamicFlashing();
+        },
 
-removeSeizureSafeStyles() {
-    const style = document.getElementById('seizure-safe-styles');
-    if (style) {
-        style.remove();
-    }
-    
-    // Clean up observer
-    if (this.seizureSafeObserver) {
-        this.seizureSafeObserver.disconnect();
-        this.seizureSafeObserver = null;
-    }
-    
-    // Remove inline styles from elements
-    const allElements = document.querySelectorAll('*:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight)');
-    allElements.forEach(element => {
-        element.style.removeProperty('animation');
-        element.style.removeProperty('transition');
-        element.style.removeProperty('animation-duration');
-        element.style.removeProperty('transition-duration');
-        element.style.removeProperty('animation-iteration-count');
-    });
-}
+        preventDynamicFlashing() {
+            // Override any existing animation/transition styles
+            const allElements = document.querySelectorAll('*:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight)');
+            allElements.forEach(element => {
+                element.style.animation = 'none';
+                element.style.transition = 'none';
+                element.style.animationDuration = '0.01ms';
+                element.style.transitionDuration = '0.01ms';
+                element.style.animationIterationCount = '1';
+            });
+            
+            // Monitor for dynamically added elements
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === 1 && !node.closest('#accessibility-widget, #accessibility-panel, #adhd-spotlight')) {
+                            node.style.animation = 'none';
+                            node.style.transition = 'none';
+                            node.style.animationDuration = '0.01ms';
+                            node.style.transitionDuration = '0.01ms';
+                            node.style.animationIterationCount = '1';
+                        }
+                    });
+                });
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+            
+            // Store observer for cleanup
+            this.seizureSafeObserver = observer;
+        },
+
+        removeSeizureSafeStyles() {
+            const style = document.getElementById('seizure-safe-styles');
+            if (style) {
+                style.remove();
+            }
+            
+            // Clean up observer
+            if (this.seizureSafeObserver) {
+                this.seizureSafeObserver.disconnect();
+                this.seizureSafeObserver = null;
+            }
+            
+            // Remove inline styles from elements
+            const allElements = document.querySelectorAll('*:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight)');
+            allElements.forEach(element => {
+                element.style.removeProperty('animation');
+                element.style.removeProperty('transition');
+                element.style.removeProperty('animation-duration');
+                element.style.removeProperty('transition-duration');
+                element.style.removeProperty('animation-iteration-count');
+            });
+        },
 
         toggleVisionImpaired(enabled) {
             if (enabled) {
