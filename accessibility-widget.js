@@ -276,162 +276,127 @@
             }
         },
 
-applySeizureSafeStyles() {
-    this.removeSeizureSafeStyles();
-    
-    const style = document.createElement('style');
-    style.id = 'seizure-safe-styles';
-    style.textContent = `
-        /* WCAG 2.1 Level AAA Compliance - Three Flashes or Below Threshold */
-        *:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) {
-            animation: none !important;
-            transition: none !important;
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            animation-fill-mode: forwards !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-        }
-        
-        /* Block all CSS animations and transitions */
-        *, *::before, *::after {
-            animation: none !important;
-            transition: none !important;
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-        }
-        
-        /* Override all keyframe animations to prevent flashing */
-        @keyframes * {
-            0%, 100% { opacity: 1 !important; transform: none !important; }
-        }
-        
-        /* Make entire page black and white (grayscale) */
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight),
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) * {
-            filter: grayscale(100%) !important;
-            color: #000000 !important;
-            background-color: #ffffff !important;
-        }
-        
-        /* Ensure links are visible in black and white */
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) a {
-            color: #000000 !important;
-            text-decoration: underline !important;
-        }
-        
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) a:visited {
-            color: #333333 !important;
-        }
-        
-        /* Remove any background images that might flash */
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) * {
-            background-image: none !important;
-            background: #ffffff !important;
-        }
-        
-        /* Ensure images and videos are grayscale */
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) img,
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) video,
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) canvas,
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) svg {
-            filter: grayscale(100%) !important;
-        }
-        
-        /* Prevent any hover effects that might cause flashing */
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) *:hover {
-            animation: none !important;
-            transition: none !important;
-            filter: grayscale(100%) !important;
-        }
-        
-        /* Block any JavaScript animations */
-        body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) * {
-            animation-play-state: paused !important;
-        }
-        
-        /* Ensure accessibility widget remains functional */
-        #accessibility-widget,
-        #accessibility-panel,
-        #adhd-spotlight {
-            filter: none !important;
-            animation: none !important;
-            transition: none !important;
-        }
-        
-        #accessibility-widget *,
-        #accessibility-panel *,
-        #adhd-spotlight * {
-            filter: none !important;
-            animation: none !important;
-            transition: none !important;
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Additional JavaScript to prevent any dynamic flashing
-    this.preventDynamicFlashing();
-},
-
-preventDynamicFlashing() {
-    // Override any existing animation/transition styles
-    const allElements = document.querySelectorAll('*:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight)');
-    allElements.forEach(element => {
-        element.style.animation = 'none';
-        element.style.transition = 'none';
-        element.style.animationDuration = '0.01ms';
-        element.style.transitionDuration = '0.01ms';
-        element.style.animationIterationCount = '1';
-    });
-    
-    // Monitor for dynamically added elements
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((node) => {
-                if (node.nodeType === 1 && !node.closest('#accessibility-widget, #accessibility-panel, #adhd-spotlight')) {
-                    node.style.animation = 'none';
-                    node.style.transition = 'none';
-                    node.style.animationDuration = '0.01ms';
-                    node.style.transitionDuration = '0.01ms';
-                    node.style.animationIterationCount = '1';
+        applySeizureSafeStyles() {
+            this.removeSeizureSafeStyles();
+            
+            const style = document.createElement('style');
+            style.id = 'seizure-safe-styles';
+            style.textContent = `
+                /* WCAG 2.1 Level AAA Compliance - Three Flashes or Below Threshold */
+                *:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) {
+                    animation: none !important;
+                    transition: none !important;
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    animation-fill-mode: forwards !important;
+                    transition-duration: 0.01ms !important;
+                    scroll-behavior: auto !important;
                 }
-            });
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-    
-    // Store observer for cleanup
-    this.seizureSafeObserver = observer;
-},
+                
+                /* Block all CSS animations and transitions */
+                *, *::before, *::after {
+                    animation: none !important;
+                    transition: none !important;
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                    scroll-behavior: auto !important;
+                }
+                
+                /* Override all keyframe animations to prevent flashing */
+                @keyframes * {
+                    0%, 100% { opacity: 1 !important; transform: none !important; }
+                }
+                
+                /* Prevent any hover effects that might cause flashing */
+                body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) *:hover {
+                    animation: none !important;
+                    transition: none !important;
+                }
+                
+                /* Block any JavaScript animations */
+                body:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight) * {
+                    animation-play-state: paused !important;
+                }
+                
+                /* Ensure accessibility widget remains functional */
+                #accessibility-widget,
+                #accessibility-panel,
+                #adhd-spotlight {
+                    animation: none !important;
+                    transition: none !important;
+                }
+                
+                #accessibility-widget *,
+                #accessibility-panel *,
+                #adhd-spotlight * {
+                    animation: none !important;
+                    transition: none !important;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Additional JavaScript to prevent any dynamic flashing
+            this.preventDynamicFlashing();
+        },
 
-removeSeizureSafeStyles() {
-    const style = document.getElementById('seizure-safe-styles');
-    if (style) {
-        style.remove();
-    }
-    
-    // Clean up observer
-    if (this.seizureSafeObserver) {
-        this.seizureSafeObserver.disconnect();
-        this.seizureSafeObserver = null;
-    }
-    
-    // Remove inline styles from elements
-    const allElements = document.querySelectorAll('*:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight)');
-    allElements.forEach(element => {
-        element.style.removeProperty('animation');
-        element.style.removeProperty('transition');
-        element.style.removeProperty('animation-duration');
-        element.style.removeProperty('transition-duration');
-        element.style.removeProperty('animation-iteration-count');
-    });
-}
+        preventDynamicFlashing() {
+            // Override any existing animation/transition styles
+            const allElements = document.querySelectorAll('*:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight)');
+            allElements.forEach(element => {
+                element.style.animation = 'none';
+                element.style.transition = 'none';
+                element.style.animationDuration = '0.01ms';
+                element.style.transitionDuration = '0.01ms';
+                element.style.animationIterationCount = '1';
+            });
+            
+            // Monitor for dynamically added elements
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === 1 && !node.closest('#accessibility-widget, #accessibility-panel, #adhd-spotlight')) {
+                            node.style.animation = 'none';
+                            node.style.transition = 'none';
+                            node.style.animationDuration = '0.01ms';
+                            node.style.transitionDuration = '0.01ms';
+                            node.style.animationIterationCount = '1';
+                        }
+                    });
+                });
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+            
+            // Store observer for cleanup
+            this.seizureSafeObserver = observer;
+        },
+
+        removeSeizureSafeStyles() {
+            const style = document.getElementById('seizure-safe-styles');
+            if (style) {
+                style.remove();
+            }
+            
+            // Clean up observer
+            if (this.seizureSafeObserver) {
+                this.seizureSafeObserver.disconnect();
+                this.seizureSafeObserver = null;
+            }
+            
+            // Remove inline styles from elements
+            const allElements = document.querySelectorAll('*:not(#accessibility-widget):not(#accessibility-panel):not(#adhd-spotlight)');
+            allElements.forEach(element => {
+                element.style.removeProperty('animation');
+                element.style.removeProperty('transition');
+                element.style.removeProperty('animation-duration');
+                element.style.removeProperty('transition-duration');
+                element.style.removeProperty('animation-iteration-count');
+            });
+        },
 
         toggleVisionImpaired(enabled) {
             if (enabled) {
