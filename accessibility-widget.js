@@ -22,6 +22,244 @@
         }
     };
 
+    // Add CSS styles for the widget
+    const widgetStyles = document.createElement('style');
+    widgetStyles.textContent = `
+        #accessibility-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            font-family: Arial, sans-serif;
+        }
+
+        #accessibility-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #0066CC;
+            border: none;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #accessibility-toggle:hover {
+            background: #0052A3;
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        #accessibility-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 10001;
+            display: none;
+            overflow-y: auto;
+            font-family: Arial, sans-serif;
+        }
+
+        #accessibility-panel.active {
+            display: block;
+        }
+
+        .accessibility-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            background: #f8f9fa;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .accessibility-header button {
+            background: #0066CC;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .accessibility-header button:hover {
+            background: #0052A3;
+        }
+
+        .search-section {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        #search-content {
+            width: 100%;
+            padding: 12px 40px 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        #search-dropdown {
+            position: absolute;
+            right: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .accessibility-content {
+            padding: 20px;
+        }
+
+        .accessibility-content h3 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 20px;
+        }
+
+        .accessibility-section {
+            margin-bottom: 20px;
+            padding: 16px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .profile-header h4 {
+            margin: 0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .profile-description {
+            margin: 4px 0;
+            color: #666;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .profile-details {
+            margin: 8px 0;
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .profile-note {
+            margin: 8px 0 0 0;
+            color: #0066CC;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-switch label {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px;
+            font-size: 10px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .toggle-switch label:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        .toggle-switch input:checked + label {
+            background-color: #0066CC;
+        }
+
+        .toggle-switch input:checked + label:before {
+            transform: translateX(30px);
+        }
+
+        .toggle-switch .toggle-off {
+            margin-left: 8px;
+        }
+
+        .toggle-switch .toggle-on {
+            margin-right: 8px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            #accessibility-panel {
+                width: 95%;
+                max-height: 90vh;
+            }
+            
+            .accessibility-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .accessibility-header button {
+                justify-content: center;
+            }
+        }
+    `;
+    document.head.appendChild(widgetStyles);
+
     // Accessibility features implementation
     const AccessibilityWidget = {
         init() {
@@ -690,73 +928,73 @@
             }
         },
 
-applyCognitiveStyles() {
-    this.removeCognitiveStyles();
-    
-    const style = document.createElement('style');
-    style.id = 'cognitive-styles';
-    style.textContent = `
-        body:not(#accessibility-widget):not(#accessibility-panel) {
-            font-family: Arial, Helvetica, sans-serif !important;
-            font-size: 18px !important;
-            line-height: 1.8 !important;
-        }
-        
-        body:not(#accessibility-widget):not(#accessibility-panel) p {
-            margin-bottom: 1.5em !important;
-        }
-        
-        body:not(#accessibility-widget):not(#accessibility-panel) a {
-            text-decoration: underline !important;
-            color: #0000EE !important;
-        }
-        
-        body:not(#accessibility-widget):not(#accessibility-panel) *:focus {
-            outline: 3px solid #0000EE !important;
-            outline-offset: 2px !important;
-        }
-        
-        /* Add boxes around all interactive elements */
-        body:not(#accessibility-widget):not(#accessibility-panel) button,
-        body:not(#accessibility-widget):not(#accessibility-panel) input,
-        body:not(#accessibility-widget):not(#accessibility-panel) select,
-        body:not(#accessibility-widget):not(#accessibility-panel) textarea,
-        body:not(#accessibility-widget):not(#accessibility-panel) a,
-        body:not(#accessibility-widget):not(#accessibility-panel) h1,
-        body:not(#accessibility-widget):not(#accessibility-panel) h2,
-        body:not(#accessibility-widget):not(#accessibility-panel) h3,
-        body:not(#accessibility-widget):not(#accessibility-panel) h4,
-        body:not(#accessibility-widget):not(#accessibility-panel) h5,
-        body:not(#accessibility-widget):not(#accessibility-panel) h6,
-        body:not(#accessibility-widget):not(#accessibility-panel) li,
-        body:not(#accessibility-widget):not(#accessibility-panel) label,
-        body:not(#accessibility-widget):not(#accessibility-panel) [role="button"],
-        body:not(#accessibility-widget):not(#accessibility-panel) [role="link"],
-        body:not(#accessibility-widget):not(#accessibility-panel) [role="menuitem"],
-        body:not(#accessibility-widget):not(#accessibility-panel) [role="tab"],
-        body:not(#accessibility-widget):not(#accessibility-panel) [role="option"] {
-            border: 2px solid #0066CC !important;
-            border-radius: 4px !important;
-            padding: 4px 8px !important;
-            margin: 2px !important;
-            background-color: rgba(0, 102, 204, 0.05) !important;
-        }
-        
-        /* Ensure accessibility elements are not affected */
-        #accessibility-widget,
-        #accessibility-panel {
-            border: none !important;
-            background-color: transparent !important;
-        }
-        
-        #accessibility-widget *,
-        #accessibility-panel * {
-            border: none !important;
-            background-color: transparent !important;
-        }
-    `;
-    document.head.appendChild(style);
-}
+        applyCognitiveStyles() {
+            this.removeCognitiveStyles();
+            
+            const style = document.createElement('style');
+            style.id = 'cognitive-styles';
+            style.textContent = `
+                body:not(#accessibility-widget):not(#accessibility-panel) {
+                    font-family: Arial, Helvetica, sans-serif !important;
+                    font-size: 18px !important;
+                    line-height: 1.8 !important;
+                }
+                
+                body:not(#accessibility-widget):not(#accessibility-panel) p {
+                    margin-bottom: 1.5em !important;
+                }
+                
+                body:not(#accessibility-widget):not(#accessibility-panel) a {
+                    text-decoration: underline !important;
+                    color: #0000EE !important;
+                }
+                
+                body:not(#accessibility-widget):not(#accessibility-panel) *:focus {
+                    outline: 3px solid #0000EE !important;
+                    outline-offset: 2px !important;
+                }
+                
+                /* Add boxes around all interactive elements */
+                body:not(#accessibility-widget):not(#accessibility-panel) button,
+                body:not(#accessibility-widget):not(#accessibility-panel) input,
+                body:not(#accessibility-widget):not(#accessibility-panel) select,
+                body:not(#accessibility-widget):not(#accessibility-panel) textarea,
+                body:not(#accessibility-widget):not(#accessibility-panel) a,
+                body:not(#accessibility-widget):not(#accessibility-panel) h1,
+                body:not(#accessibility-widget):not(#accessibility-panel) h2,
+                body:not(#accessibility-widget):not(#accessibility-panel) h3,
+                body:not(#accessibility-widget):not(#accessibility-panel) h4,
+                body:not(#accessibility-widget):not(#accessibility-panel) h5,
+                body:not(#accessibility-widget):not(#accessibility-panel) h6,
+                body:not(#accessibility-widget):not(#accessibility-panel) li,
+                body:not(#accessibility-widget):not(#accessibility-panel) label,
+                body:not(#accessibility-widget):not(#accessibility-panel) [role="button"],
+                body:not(#accessibility-widget):not(#accessibility-panel) [role="link"],
+                body:not(#accessibility-widget):not(#accessibility-panel) [role="menuitem"],
+                body:not(#accessibility-widget):not(#accessibility-panel) [role="tab"],
+                body:not(#accessibility-widget):not(#accessibility-panel) [role="option"] {
+                    border: 2px solid #0066CC !important;
+                    border-radius: 4px !important;
+                    padding: 4px 8px !important;
+                    margin: 2px !important;
+                    background-color: rgba(0, 102, 204, 0.05) !important;
+                }
+                
+                /* Ensure accessibility elements are not affected */
+                #accessibility-widget,
+                #accessibility-panel {
+                    border: none !important;
+                    background-color: transparent !important;
+                }
+                
+                #accessibility-widget *,
+                #accessibility-panel * {
+                    border: none !important;
+                    background-color: transparent !important;
+                }
+            `;
+            document.head.appendChild(style);
+        },
 
         removeCognitiveStyles() {
             const style = document.getElementById('cognitive-styles');
@@ -779,51 +1017,52 @@ applyCognitiveStyles() {
             }
         },
 
-applyKeyboardNavigationStyles() {
-    this.removeKeyboardNavigationStyles();
-    
-    const style = document.createElement('style');
-    style.id = 'keyboard-navigation-styles';
-    style.textContent = `
-        /* Enhanced focus indicators */
-        body:not(#accessibility-widget):not(#accessibility-panel) *:focus {
-            outline: 3px solid #0066CC !important;
-            outline-offset: 2px !important;
-            background-color: rgba(0, 102, 204, 0.1) !important;
-        }
-        
-        /* Skip links */
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 6px;
-            background: #0066CC;
-            color: white;
-            padding: 8px;
-            text-decoration: none;
-            border-radius: 4px;
-            z-index: 10000;
-        }
-        
-        .skip-link:focus {
-            top: 6px;
-        }
-        
-        /* Ensure accessibility elements are not affected */
-        #accessibility-widget,
-        #accessibility-panel {
-            outline: none !important;
-            background-color: transparent !important;
-        }
-        
-        #accessibility-widget *,
-        #accessibility-panel * {
-            outline: none !important;
-            background-color: transparent !important;
-        }
-    `;
-    document.head.appendChild(style);
-}
+        applyKeyboardNavigationStyles() {
+            this.removeKeyboardNavigationStyles();
+            
+            const style = document.createElement('style');
+            style.id = 'keyboard-navigation-styles';
+            style.textContent = `
+                /* Enhanced focus indicators */
+                body:not(#accessibility-widget):not(#accessibility-panel) *:focus {
+                    outline: 3px solid #0066CC !important;
+                    outline-offset: 2px !important;
+                    background-color: rgba(0, 102, 204, 0.1) !important;
+                }
+                
+                /* Skip links */
+                .skip-link {
+                    position: absolute;
+                    top: -40px;
+                    left: 6px;
+                    background: #0066CC;
+                    color: white;
+                    padding: 8px;
+                    text-decoration: none;
+                    border-radius: 4px;
+                    z-index: 10000;
+                }
+                
+                .skip-link:focus {
+                    top: 6px;
+                }
+                
+                /* Ensure accessibility elements are not affected */
+                #accessibility-widget,
+                #accessibility-panel {
+                    outline: none !important;
+                    background-color: transparent !important;
+                }
+                
+                #accessibility-widget *,
+                #accessibility-panel * {
+                    outline: none !important;
+                    background-color: transparent !important;
+                }
+            `;
+            document.head.appendChild(style);
+        },
+
         removeKeyboardNavigationStyles() {
             const style = document.getElementById('keyboard-navigation-styles');
             if (style) {
@@ -941,7 +1180,7 @@ applyKeyboardNavigationStyles() {
             this.addMissingARIALabels();
         },
 
-        removeBlindUsersStyles() {
+                removeBlindUsersStyles() {
             const style = document.getElementById('blind-users-styles');
             if (style) {
                 style.remove();
@@ -1054,4 +1293,3 @@ applyKeyboardNavigationStyles() {
         AccessibilityWidget.init();
     }
 })();
-
