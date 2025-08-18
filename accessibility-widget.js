@@ -78,12 +78,7 @@ class AccessibilityWidget {
                 </button>
             </div>
 
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Unclear content? Search in dictionary...">
-                <i class="fas fa-chevron-down"></i>
-            </div>
-
+            
             <div class="profiles-section">
                 <h3>Choose the right accessibility profile for you</h3>
                 
