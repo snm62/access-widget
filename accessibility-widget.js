@@ -723,25 +723,22 @@ class AccessibilityWidget {
         console.log('Accessibility Widget: Events bound successfully'); // Debug log
     }
 
-    togglePanel() {
-        console.log('Accessibility Widget: Toggling panel...'); // Debug log
-        const panel = document.getElementById('accessibility-panel');
-        const overlay = document.getElementById('accessibility-overlay');
-        
-        if (panel && overlay) {
-            if (panel.classList.contains('active')) {
-                panel.classList.remove('active');
-                overlay.classList.remove('active');
-                console.log('Accessibility Widget: Panel closed'); // Debug log
-            } else {
-                panel.classList.add('active');
-                overlay.classList.add('active');
-                console.log('Accessibility Widget: Panel opened'); // Debug log
-            }
+togglePanel() {
+    console.log('Accessibility Widget: Toggling panel...');
+    const panel = document.getElementById('accessibility-panel');
+    
+    if (panel) {
+        if (panel.classList.contains('active')) {
+            panel.classList.remove('active');
+            console.log('Accessibility Widget: Panel closed');
         } else {
-            console.error('Accessibility Widget: Panel or overlay not found!');
+            panel.classList.add('active');
+            console.log('Accessibility Widget: Panel opened');
         }
+    } else {
+        console.error('Accessibility Widget: Panel not found!');
     }
+}
 
     handleToggle(feature, enabled) {
         this.settings[feature] = enabled;
