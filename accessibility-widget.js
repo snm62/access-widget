@@ -79,7 +79,560 @@ class AccessibilityWidget {
             <div class="profiles-section">
                 <h3>Choose the right accessibility profile for you</h3>
                 
-                ${this.getProfileItems()}
+                <!-- Module 1: Seizure Safe Profile -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-bolt"></i>
+                        <div>
+                            <h4>Seizure Safe Profile</h4>
+                            <p>Clear flashes & reduces color</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="seizure-safe">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 2: Vision Impaired Profile -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-eye"></i>
+                        <div>
+                            <h4>Vision Impaired Profile</h4>
+                            <p>Enhances website's visuals</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="vision-impaired">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 3: ADHD Friendly Profile -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-layer-group"></i>
+                        <div>
+                            <h4>ADHD Friendly Profile</h4>
+                            <p>More focus & fewer distractions</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="adhd-friendly">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 4: Cognitive Disability Profile -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-bullseye"></i>
+                        <div>
+                            <h4>Cognitive Disability Profile</h4>
+                            <p>Assists with reading & focusing</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="cognitive-disability">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 5: Keyboard Navigation -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-arrow-right"></i>
+                        <div>
+                            <h4>Keyboard Navigation (Motor)</h4>
+                            <p>Use website with the keyboard</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="keyboard-nav" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 6: Blind Users Screen Reader -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-headphones"></i>
+                        <div>
+                            <h4>Blind Users Screen Reader</h4>
+                            <p>Screen reader compatibility</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="screen-reader">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 7: Content Scaling -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        <div>
+                            <h4>Content Scaling</h4>
+                            <p>Responsive to browser zoom</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="content-scaling">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 8: Readable Font -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-font"></i>
+                        <div>
+                            <h4>Readable Font</h4>
+                            <p>High-legibility fonts</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="readable-font">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 9: Highlight Titles -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-heading"></i>
+                        <div>
+                            <h4>Highlight Titles</h4>
+                            <p>Visual emphasis on headings</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="highlight-titles">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 10: Highlight Links -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-link"></i>
+                        <div>
+                            <h4>Highlight Links</h4>
+                            <p>Clear link identification</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="highlight-links">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 11: Text Magnifier -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-search-plus"></i>
+                        <div>
+                            <h4>Text Magnifier</h4>
+                            <p>Floating magnifying glass tool</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="text-magnifier">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 12: Adjust Font Sizing -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-text-height"></i>
+                        <div>
+                            <h4>Adjust Font Sizing</h4>
+                            <p>Percentage-based scaling</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="font-sizing">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 13: Align Center -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-align-center"></i>
+                        <div>
+                            <h4>Align Center</h4>
+                            <p>Center-aligns all text content</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="align-center">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 14: Adjust Line Height -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-arrows-alt-v"></i>
+                        <div>
+                            <h4>Adjust Line Height</h4>
+                            <p>Increases spacing between lines</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="adjust-line-height">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 15: Adjust Letter Spacing -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-text-width"></i>
+                        <div>
+                            <h4>Adjust Letter Spacing</h4>
+                            <p>Increases character spacing</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="adjust-letter-spacing">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 16: Align Left -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-align-left"></i>
+                        <div>
+                            <h4>Align Left</h4>
+                            <p>Left-aligns text content</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="align-left">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 17: Align Right -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-align-right"></i>
+                        <div>
+                            <h4>Align Right</h4>
+                            <p>Right-aligns text content</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="align-right">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 18: Dark Contrast -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-moon"></i>
+                        <div>
+                            <h4>Dark Contrast</h4>
+                            <p>Dark background with light text</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="dark-contrast">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 19: Light Contrast -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-sun"></i>
+                        <div>
+                            <h4>Light Contrast</h4>
+                            <p>Light background with dark text</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="light-contrast">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 20: High Contrast -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-adjust"></i>
+                        <div>
+                            <h4>High Contrast</h4>
+                            <p>Maximum contrast implementation</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="high-contrast">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 21: High Saturation -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-palette"></i>
+                        <div>
+                            <h4>High Saturation</h4>
+                            <p>Increases color intensity</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="high-saturation">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 22: Adjust Text Colors -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-paint-brush"></i>
+                        <div>
+                            <h4>Adjust Text Colors</h4>
+                            <p>Color picker functionality</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="adjust-text-colors">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 23: Monochrome -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-circle"></i>
+                        <div>
+                            <h4>Monochrome</h4>
+                            <p>Removes all colors except black, white, grays</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="monochrome">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 24: Adjust Title Colors -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-heading"></i>
+                        <div>
+                            <h4>Adjust Title Colors</h4>
+                            <p>Color customization for headings</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="adjust-title-colors">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 25: Low Saturation -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-tint"></i>
+                        <div>
+                            <h4>Low Saturation</h4>
+                            <p>Reduces color intensity</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="low-saturation">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 26: Adjust Background Colors -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-fill-drip"></i>
+                        <div>
+                            <h4>Adjust Background Colors</h4>
+                            <p>Background color customization</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="adjust-bg-colors">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 27: Mute Sound -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-volume-mute"></i>
+                        <div>
+                            <h4>Mute Sound</h4>
+                            <p>Disables all audio content</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="mute-sound">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 28: Hide Images -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-image"></i>
+                        <div>
+                            <h4>Hide Images</h4>
+                            <p>Toggle to hide all images</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="hide-images">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 29: Read Mode -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-book-open"></i>
+                        <div>
+                            <h4>Read Mode</h4>
+                            <p>Removes navigation elements</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="read-mode">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 30: Reading Guide -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-highlighter"></i>
+                        <div>
+                            <h4>Reading Guide</h4>
+                            <p>Movable highlight bar</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="reading-guide">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 31: Useful Links -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-external-link-alt"></i>
+                        <div>
+                            <h4>Useful Links</h4>
+                            <p>Accessibility resources compilation</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="useful-links">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 32: Stop Animation -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-pause"></i>
+                        <div>
+                            <h4>Stop Animation</h4>
+                            <p>Pauses all CSS animations</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="stop-animation">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 33: Reading Mask -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-mask"></i>
+                        <div>
+                            <h4>Reading Mask</h4>
+                            <p>Semi-transparent overlay</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="reading-mask">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 34: Highlight Hover -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <div>
+                            <h4>Highlight Hover</h4>
+                            <p>Visual feedback on hover</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="highlight-hover">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 35: Highlight Focus -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-crosshairs"></i>
+                        <div>
+                            <h4>Highlight Focus</h4>
+                            <p>Prominent focus indicators</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="highlight-focus">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 36: Big Black Cursor -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-mouse"></i>
+                        <div>
+                            <h4>Big Black Cursor</h4>
+                            <p>Increases cursor size</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="big-black-cursor">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Module 37: Big White Cursor -->
+                <div class="profile-item">
+                    <div class="profile-info">
+                        <i class="fas fa-mouse"></i>
+                        <div>
+                            <h4>Big White Cursor</h4>
+                            <p>Increases cursor size</p>
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="big-white-cursor">
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </div>
 
             <div class="panel-footer">
@@ -90,64 +643,6 @@ class AccessibilityWidget {
                 <a href="#" class="learn-more">Learn More ></a>
             </div>
         `;
-    }
-
-    getProfileItems() {
-        const profiles = [
-            { id: 'seizure-safe', icon: 'fas fa-bolt', title: 'Seizure Safe Profile', desc: 'Clear flashes & reduces color' },
-            { id: 'vision-impaired', icon: 'fas fa-eye', title: 'Vision Impaired Profile', desc: 'Enhances website\'s visuals' },
-            { id: 'adhd-friendly', icon: 'fas fa-layer-group', title: 'ADHD Friendly Profile', desc: 'More focus & fewer distractions' },
-            { id: 'cognitive-disability', icon: 'fas fa-bullseye', title: 'Cognitive Disability Profile', desc: 'Assists with reading & focusing' },
-            { id: 'keyboard-nav', icon: 'fas fa-arrow-right', title: 'Keyboard Navigation (Motor)', desc: 'Use website with the keyboard' },
-            { id: 'screen-reader', icon: 'fas fa-headphones', title: 'Blind Users Screen Reader', desc: 'Screen reader compatibility' },
-            { id: 'content-scaling', icon: 'fas fa-expand-arrows-alt', title: 'Content Scaling', desc: 'Responsive to browser zoom' },
-            { id: 'readable-font', icon: 'fas fa-font', title: 'Readable Font', desc: 'High-legibility fonts' },
-            { id: 'highlight-titles', icon: 'fas fa-heading', title: 'Highlight Titles', desc: 'Visual emphasis on headings' },
-            { id: 'highlight-links', icon: 'fas fa-link', title: 'Highlight Links', desc: 'Clear link identification' },
-            { id: 'text-magnifier', icon: 'fas fa-search-plus', title: 'Text Magnifier', desc: 'Floating magnifying glass tool' },
-            { id: 'font-sizing', icon: 'fas fa-text-height', title: 'Adjust Font Sizing', desc: 'Percentage-based scaling' },
-            { id: 'align-center', icon: 'fas fa-align-center', title: 'Align Center', desc: 'Center-aligns all text content' },
-            { id: 'adjust-line-height', icon: 'fas fa-arrows-alt-v', title: 'Adjust Line Height', desc: 'Increases spacing between lines' },
-            { id: 'adjust-letter-spacing', icon: 'fas fa-text-width', title: 'Adjust Letter Spacing', desc: 'Increases character spacing' },
-            { id: 'align-left', icon: 'fas fa-align-left', title: 'Align Left', desc: 'Left-aligns text content' },
-            { id: 'align-right', icon: 'fas fa-align-right', title: 'Align Right', desc: 'Right-aligns text content' },
-            { id: 'dark-contrast', icon: 'fas fa-moon', title: 'Dark Contrast', desc: 'Dark background with light text' },
-            { id: 'light-contrast', icon: 'fas fa-sun', title: 'Light Contrast', desc: 'Light background with dark text' },
-            { id: 'high-contrast', icon: 'fas fa-adjust', title: 'High Contrast', desc: 'Maximum contrast implementation' },
-            { id: 'high-saturation', icon: 'fas fa-palette', title: 'High Saturation', desc: 'Increases color intensity' },
-            { id: 'adjust-text-colors', icon: 'fas fa-paint-brush', title: 'Adjust Text Colors', desc: 'Color picker functionality' },
-            { id: 'monochrome', icon: 'fas fa-circle', title: 'Monochrome', desc: 'Removes all colors except black, white, grays' },
-            { id: 'adjust-title-colors', icon: 'fas fa-heading', title: 'Adjust Title Colors', desc: 'Color customization for headings' },
-            { id: 'low-saturation', icon: 'fas fa-tint', title: 'Low Saturation', desc: 'Reduces color intensity' },
-            { id: 'adjust-bg-colors', icon: 'fas fa-fill-drip', title: 'Adjust Background Colors', desc: 'Background color customization' },
-            { id: 'mute-sound', icon: 'fas fa-volume-mute', title: 'Mute Sound', desc: 'Disables all audio content' },
-            { id: 'hide-images', icon: 'fas fa-image', title: 'Hide Images', desc: 'Toggle to hide all images' },
-            { id: 'read-mode', icon: 'fas fa-book-open', title: 'Read Mode', desc: 'Removes navigation elements' },
-            { id: 'reading-guide', icon: 'fas fa-highlighter', title: 'Reading Guide', desc: 'Movable highlight bar' },
-            { id: 'useful-links', icon: 'fas fa-external-link-alt', title: 'Useful Links', desc: 'Accessibility resources compilation' },
-            { id: 'stop-animation', icon: 'fas fa-pause', title: 'Stop Animation', desc: 'Pauses all CSS animations' },
-            { id: 'reading-mask', icon: 'fas fa-mask', title: 'Reading Mask', desc: 'Semi-transparent overlay' },
-            { id: 'highlight-hover', icon: 'fas fa-mouse-pointer', title: 'Highlight Hover', desc: 'Visual feedback on hover' },
-            { id: 'highlight-focus', icon: 'fas fa-crosshairs', title: 'Highlight Focus', desc: 'Prominent focus indicators' },
-            { id: 'big-black-cursor', icon: 'fas fa-mouse', title: 'Big Black Cursor', desc: 'Increases cursor size' },
-            { id: 'big-white-cursor', icon: 'fas fa-mouse', title: 'Big White Cursor', desc: 'Increases cursor size' }
-        ];
-
-        return profiles.map(profile => `
-            <div class="profile-item">
-                <div class="profile-info">
-                    <i class="${profile.icon}"></i>
-                    <div>
-                        <h4>${profile.title}</h4>
-                        <p>${profile.desc}</p>
-                    </div>
-                </div>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="${profile.id}">
-                    <span class="slider"></span>
-                </label>
-            </div>
-        `).join('');
     }
 
     bindEvents() {
@@ -242,6 +737,9 @@ class AccessibilityWidget {
                 case 'adjust-bg-colors':
                     this.showColorPicker('background');
                     break;
+                case 'useful-links':
+                    this.showUsefulLinks();
+                    break;
             }
         } else {
             body.classList.remove(feature);
@@ -326,6 +824,22 @@ class AccessibilityWidget {
             document.documentElement.style.setProperty(`--custom-${type}-color`, color);
             document.body.classList.add(`custom-${type}-color`);
         }
+    }
+
+    showUsefulLinks() {
+        const links = [
+            { name: 'WCAG Guidelines', url: 'https://www.w3.org/WAI/WCAG21/quickref/' },
+            { name: 'WebAIM', url: 'https://webaim.org/' },
+            { name: 'A11Y Project', url: 'https://www.a11yproject.com/' },
+            { name: 'Color Contrast Checker', url: 'https://webaim.org/resources/contrastchecker/' }
+        ];
+        
+        let message = 'Useful Accessibility Resources:\n\n';
+        links.forEach(link => {
+            message += `${link.name}: ${link.url}\n`;
+        });
+        
+        alert(message);
     }
 
     showStatement() {
