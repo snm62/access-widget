@@ -16,7 +16,6 @@
             lightBackground: true,
             links: true,
             fontFamily: true,
-            cursor: true,
             readingGuide: true,
             screenReader: true,
             keyboardNavigation: true
@@ -453,30 +452,30 @@
             const style = document.createElement('style');
             style.id = 'vision-impaired-styles';
             style.textContent = `
-                body:not(access-widget-ui):not([data-acsb]) {
+                body:not(#accessibility-widget):not(#accessibility-panel) {
                     zoom: 1.16 !important;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) * {
+                body:not(#accessibility-widget):not(#accessibility-panel) * {
                     font-family: Arial, Helvetica, sans-serif !important;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) {
+                body:not(#accessibility-widget):not(#accessibility-panel) {
                     color: #000000 !important;
                     background-color: #ffffff !important;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) a {
+                body:not(#accessibility-widget):not(#accessibility-panel) a {
                     color: #0000EE !important;
                     text-decoration: underline !important;
                 }
                 
                 /* Increased contrast */
-                body:not(access-widget-ui):not([data-acsb]) {
+                body:not(#accessibility-widget):not(#accessibility-panel) {
                     filter: contrast(1.3) !important;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) * {
+                body:not(#accessibility-widget):not(#accessibility-panel) * {
                     filter: contrast(1.3) !important;
                 }
                 
@@ -484,11 +483,13 @@
                 #accessibility-widget,
                 #accessibility-panel {
                     filter: none !important;
+                    zoom: 1 !important;
                 }
                 
                 #accessibility-widget *,
                 #accessibility-panel * {
                     filter: none !important;
+                    zoom: 1 !important;
                 }
             `;
             document.head.appendChild(style);
@@ -571,40 +572,40 @@
             const style = document.createElement('style');
             style.id = 'adhd-styles';
             style.textContent = `
-                body:not(access-widget-ui):not([data-acsb]) {
+                body:not(#accessibility-widget):not(#accessibility-panel) {
                     font-family: Arial, Helvetica, sans-serif !important;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) * {
+                body:not(#accessibility-widget):not(#accessibility-panel) * {
                     background-image: none !important;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) video {
+                body:not(#accessibility-widget):not(#accessibility-panel) video {
                     display: none !important;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) p,
-                body:not(access-widget-ui):not([data-acsb]) h1,
-                body:not(access-widget-ui):not([data-acsb]) h2,
-                body:not(access-widget-ui):not([data-acsb]) h3,
-                body:not(access-widget-ui):not([data-acsb]) h4,
-                body:not(access-widget-ui):not([data-acsb]) h5,
-                body:not(access-widget-ui):not([data-acsb]) h6 {
+                body:not(#accessibility-widget):not(#accessibility-panel) p,
+                body:not(#accessibility-widget):not(#accessibility-panel) h1,
+                body:not(#accessibility-widget):not(#accessibility-panel) h2,
+                body:not(#accessibility-widget):not(#accessibility-panel) h3,
+                body:not(#accessibility-widget):not(#accessibility-panel) h4,
+                body:not(#accessibility-widget):not(#accessibility-panel) h5,
+                body:not(#accessibility-widget):not(#accessibility-panel) h6 {
                     line-height: 1.6 !important;
                     margin-bottom: 1em !important;
                 }
                 
                 /* Increased contrast */
-                body:not(access-widget-ui):not([data-acsb]) {
+                body:not(#accessibility-widget):not(#accessibility-panel) {
                     filter: contrast(1.3) !important;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) * {
+                body:not(#accessibility-widget):not(#accessibility-panel) * {
                     filter: contrast(1.3) !important;
                 }
                 
                 /* Create a mask that makes everything darker except the spotlight area */
-                body:not(access-widget-ui):not([data-acsb])::before {
+                body:not(#accessibility-widget):not(#accessibility-panel)::before {
                     content: '';
                     position: fixed;
                     top: 0;
@@ -631,7 +632,7 @@
                 }
                 
                 /* Make the spotlight area much brighter */
-                body:not(access-widget-ui):not([data-acsb])::after {
+                body:not(#accessibility-widget):not(#accessibility-panel)::after {
                     content: '';
                     position: fixed;
                     top: 0;
@@ -699,45 +700,45 @@
             const style = document.createElement('style');
             style.id = 'cognitive-styles';
             style.textContent = `
-                body:not(access-widget-ui):not([data-acsb]) {
+                body:not(#accessibility-widget):not(#accessibility-panel) {
                     font-family: Arial, Helvetica, sans-serif !important;
                     font-size: 18px !important;
                     line-height: 1.8 !important;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) p {
+                body:not(#accessibility-widget):not(#accessibility-panel) p {
                     margin-bottom: 1.5em !important;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) a {
+                body:not(#accessibility-widget):not(#accessibility-panel) a {
                     text-decoration: underline !important;
                     color: #0000EE !important;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) *:focus {
+                body:not(#accessibility-widget):not(#accessibility-panel) *:focus {
                     outline: 3px solid #0000EE !important;
                     outline-offset: 2px !important;
                 }
                 
                 /* Add boxes around all interactive elements */
-                body:not(access-widget-ui):not([data-acsb]) button,
-                body:not(access-widget-ui):not([data-acsb]) input,
-                body:not(access-widget-ui):not([data-acsb]) select,
-                body:not(access-widget-ui):not([data-acsb]) textarea,
-                body:not(access-widget-ui):not([data-acsb]) a,
-                body:not(access-widget-ui):not([data-acsb]) h1,
-                body:not(access-widget-ui):not([data-acsb]) h2,
-                body:not(access-widget-ui):not([data-acsb]) h3,
-                body:not(access-widget-ui):not([data-acsb]) h4,
-                body:not(access-widget-ui):not([data-acsb]) h5,
-                body:not(access-widget-ui):not([data-acsb]) h6,
-                body:not(access-widget-ui):not([data-acsb]) li,
-                body:not(access-widget-ui):not([data-acsb]) label,
-                body:not(access-widget-ui):not([data-acsb]) [role="button"],
-                body:not(access-widget-ui):not([data-acsb]) [role="link"],
-                body:not(access-widget-ui):not([data-acsb]) [role="menuitem"],
-                body:not(access-widget-ui):not([data-acsb]) [role="tab"],
-                body:not(access-widget-ui):not([data-acsb]) [role="option"] {
+                body:not(#accessibility-widget):not(#accessibility-panel) button,
+                body:not(#accessibility-widget):not(#accessibility-panel) input,
+                body:not(#accessibility-widget):not(#accessibility-panel) select,
+                body:not(#accessibility-widget):not(#accessibility-panel) textarea,
+                body:not(#accessibility-widget):not(#accessibility-panel) a,
+                body:not(#accessibility-widget):not(#accessibility-panel) h1,
+                body:not(#accessibility-widget):not(#accessibility-panel) h2,
+                body:not(#accessibility-widget):not(#accessibility-panel) h3,
+                body:not(#accessibility-widget):not(#accessibility-panel) h4,
+                body:not(#accessibility-widget):not(#accessibility-panel) h5,
+                body:not(#accessibility-widget):not(#accessibility-panel) h6,
+                body:not(#accessibility-widget):not(#accessibility-panel) li,
+                body:not(#accessibility-widget):not(#accessibility-panel) label,
+                body:not(#accessibility-widget):not(#accessibility-panel) [role="button"],
+                body:not(#accessibility-widget):not(#accessibility-panel) [role="link"],
+                body:not(#accessibility-widget):not(#accessibility-panel) [role="menuitem"],
+                body:not(#accessibility-widget):not(#accessibility-panel) [role="tab"],
+                body:not(#accessibility-widget):not(#accessibility-panel) [role="option"] {
                     border: 2px solid #0066CC !important;
                     border-radius: 4px !important;
                     padding: 4px 8px !important;
@@ -789,7 +790,7 @@
             style.id = 'keyboard-navigation-styles';
             style.textContent = `
                 /* Enhanced focus indicators */
-                body:not(access-widget-ui):not([data-acsb]) *:focus {
+                body:not(#accessibility-widget):not(#accessibility-panel) *:focus {
                     outline: 3px solid #0066CC !important;
                     outline-offset: 2px !important;
                     background-color: rgba(0, 102, 204, 0.1) !important;
@@ -904,16 +905,16 @@
             style.id = 'blind-users-styles';
             style.textContent = `
                 /* Screen reader optimizations */
-                body:not(access-widget-ui):not([data-acsb]) {
+                body:not(#accessibility-widget):not(#accessibility-panel) {
                     /* Ensure proper heading structure */
                 }
                 
                 /* Add ARIA labels where missing */
-                body:not(access-widget-ui):not([data-acsb]) img:not([alt]) {
+                body:not(#accessibility-widget):not(#accessibility-panel) img:not([alt]) {
                     position: relative;
                 }
                 
-                body:not(access-widget-ui):not([data-acsb]) img:not([alt])::after {
+                body:not(#accessibility-widget):not(#accessibility-panel) img:not([alt])::after {
                     content: attr(data-alt, 'Image');
                     position: absolute;
                     left: -9999px;
@@ -923,7 +924,7 @@
                 }
                 
                 /* Ensure proper focus management */
-                body:not(access-widget-ui):not([data-acsb]) *:focus {
+                body:not(#accessibility-widget):not(#accessibility-panel) *:focus {
                     outline: 3px solid #0066CC !important;
                     outline-offset: 2px !important;
                 }
