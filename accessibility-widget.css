@@ -253,41 +253,88 @@ input:checked + .slider:before {
     font-weight: 600;
 }
 
-/* Removed overlay completely */
-
-/* Accessibility Features - Updated colors */
-/* Seizure Safe - Enhanced with grayscale and no animations */
+/* Accessibility Features */
+/* Seizure Safe - Toned down grayscale and enhanced animation stopping */
 .seizure-safe * {
     animation: none !important;
     transition: none !important;
-    filter: grayscale(100%) !important;
+    filter: grayscale(30%) !important; /* Reduced from 100% to 30% */
 }
 
 .seizure-safe {
-    filter: grayscale(100%) !important;
+    filter: grayscale(30%) !important;
 }
 
-/* Vision Impaired */
+/* Enhanced seizure safe - stop all possible animations */
+.seizure-safe *,
+.seizure-safe *::before,
+.seizure-safe *::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 0 !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+}
+
+/* Vision Impaired - Enhanced contrast */
 .vision-impaired {
     font-size: 1.2em !important;
+    filter: contrast(1.3) !important; /* Increased contrast */
 }
 
 .vision-impaired * {
     font-size: inherit !important;
+    filter: contrast(1.3) !important;
 }
 
-/* ADHD Friendly */
+.vision-impaired {
+    background: var(--white) !important;
+    color: var(--black) !important;
+}
+
+.vision-impaired * {
+    background: inherit !important;
+    color: inherit !important;
+}
+
+/* ADHD Friendly - Rectangular spotlight and enhanced contrast */
 .adhd-friendly {
     background: var(--white) !important;
+    position: relative;
+}
+
+.adhd-friendly::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 200px; /* Rectangular spotlight height */
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(255, 255, 255, 0.9) 20%,
+        rgba(255, 255, 255, 0.9) 80%,
+        transparent 100%
+    );
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 999;
+    filter: contrast(1.2) !important;
 }
 
 .adhd-friendly * {
     background: inherit !important;
+    filter: contrast(1.2) !important; /* Enhanced contrast for ADHD */
 }
 
 .adhd-friendly .adhd-focus {
     outline: 3px solid var(--primary-color) !important;
     outline-offset: 2px !important;
+    background: rgba(99, 102, 241, 0.1) !important;
 }
 
 /* Cognitive Disability */
