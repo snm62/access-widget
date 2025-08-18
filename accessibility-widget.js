@@ -1,7 +1,7 @@
 class AccessibilityWidget {
     constructor() {
         this.settings = {};
-        console.log('Accessibility Widget: Initializing...'); // Debug log
+        console.log('Accessibility Widget: Initializing...');
         this.init();
     }
 
@@ -11,17 +11,16 @@ class AccessibilityWidget {
         this.loadSettings();
         this.bindEvents();
         this.applySettings();
-        console.log('Accessibility Widget: Initialized successfully'); // Debug log
+        console.log('Accessibility Widget: Initialized successfully');
     }
 
     addFontAwesome() {
-        // Add Font Awesome CSS if not already present
         if (!document.querySelector('link[href*="font-awesome"]')) {
             const fontAwesome = document.createElement('link');
             fontAwesome.rel = 'stylesheet';
             fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
             document.head.appendChild(fontAwesome);
-            console.log('Accessibility Widget: Font Awesome added'); // Debug log
+            console.log('Accessibility Widget: Font Awesome added');
         }
     }
 
@@ -32,13 +31,7 @@ class AccessibilityWidget {
         icon.className = 'accessibility-icon';
         icon.innerHTML = '<i class="fas fa-universal-access"></i>';
         document.body.appendChild(icon);
-        console.log('Accessibility Widget: Icon created'); // Debug log
-
-        // Create overlay
-        const overlay = document.createElement('div');
-        overlay.className = 'accessibility-overlay';
-        overlay.id = 'accessibility-overlay';
-        document.body.appendChild(overlay);
+        console.log('Accessibility Widget: Icon created');
 
         // Create panel
         const panel = document.createElement('div');
@@ -46,7 +39,7 @@ class AccessibilityWidget {
         panel.className = 'accessibility-panel';
         panel.innerHTML = this.getPanelHTML();
         document.body.appendChild(panel);
-        console.log('Accessibility Widget: Panel created'); // Debug log
+        console.log('Accessibility Widget: Panel created');
     }
 
     getPanelHTML() {
@@ -78,7 +71,6 @@ class AccessibilityWidget {
                 </button>
             </div>
 
-            
             <div class="profiles-section">
                 <h3>Choose the right accessibility profile for you</h3>
                 
@@ -641,21 +633,20 @@ class AccessibilityWidget {
             <div class="panel-footer">
                 <div>
                     <i class="fas fa-check"></i>
-                  
+                    Accessibility Features
                 </div>
-                <a href="#" class="learn-more">Learn More ></a>
             </div>
         `;
     }
 
     bindEvents() {
-        console.log('Accessibility Widget: Binding events...'); // Debug log
+        console.log('Accessibility Widget: Binding events...');
         
         // Toggle panel
         const icon = document.getElementById('accessibility-icon');
         if (icon) {
             icon.addEventListener('click', () => {
-                console.log('Accessibility Widget: Icon clicked'); // Debug log
+                console.log('Accessibility Widget: Icon clicked');
                 this.togglePanel();
             });
         } else {
@@ -666,14 +657,6 @@ class AccessibilityWidget {
         const closeBtn = document.getElementById('close-panel');
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
-                this.togglePanel();
-            });
-        }
-
-        // Overlay click
-        const overlay = document.getElementById('accessibility-overlay');
-        if (overlay) {
-            overlay.addEventListener('click', () => {
                 this.togglePanel();
             });
         }
@@ -720,25 +703,25 @@ class AccessibilityWidget {
         // Text magnifier
         this.initTextMagnifier();
         
-        console.log('Accessibility Widget: Events bound successfully'); // Debug log
+        console.log('Accessibility Widget: Events bound successfully');
     }
 
-togglePanel() {
-    console.log('Accessibility Widget: Toggling panel...');
-    const panel = document.getElementById('accessibility-panel');
-    
-    if (panel) {
-        if (panel.classList.contains('active')) {
-            panel.classList.remove('active');
-            console.log('Accessibility Widget: Panel closed');
+    togglePanel() {
+        console.log('Accessibility Widget: Toggling panel...');
+        const panel = document.getElementById('accessibility-panel');
+        
+        if (panel) {
+            if (panel.classList.contains('active')) {
+                panel.classList.remove('active');
+                console.log('Accessibility Widget: Panel closed');
+            } else {
+                panel.classList.add('active');
+                                console.log('Accessibility Widget: Panel opened');
+            }
         } else {
-            panel.classList.add('active');
-            console.log('Accessibility Widget: Panel opened');
+            console.error('Accessibility Widget: Panel not found!');
         }
-    } else {
-        console.error('Accessibility Widget: Panel not found!');
     }
-}
 
     handleToggle(feature, enabled) {
         this.settings[feature] = enabled;
@@ -772,6 +755,9 @@ togglePanel() {
                 case 'useful-links':
                     this.showUsefulLinks();
                     break;
+                case 'adhd-friendly':
+                    this.createADHDSpotlight();
+                    break;
             }
         } else {
             body.classList.remove(feature);
@@ -784,7 +770,47 @@ togglePanel() {
                 case 'font-sizing':
                     this.disableFontSizing();
                     break;
+                case 'adhd-friendly':
+                    this.removeADHDSpotlight();
+                    break;
             }
+        }
+    }
+
+    createADHDSpotlight() {
+        // Remove existing spotlight if any
+        this.removeADHDSpotlight();
+        
+        // Create new spotlight
+        const spotlight = document.createElement('div');
+        spotlight.id = 'adhd-spotlight';
+        spotlight.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.8) 0%,
+                rgba(255, 255, 255, 0.4) 20%,
+                rgba(255, 255, 255, 0.4) 80%,
+                rgba(255, 255, 255, 0.8) 100%
+            );
+            transform: translateY(-50%);
+            pointer-events: none;
+            z-index: 999;
+            filter: contrast(1.15);
+        `;
+        document.body.appendChild(spotlight);
+        console.log('Accessibility Widget: ADHD spotlight created');
+    }
+
+    removeADHDSpotlight() {
+        const spotlight = document.getElementById('adhd-spotlight');
+        if (spotlight) {
+            spotlight.remove();
+            console.log('Accessibility Widget: ADHD spotlight removed');
         }
     }
 
@@ -899,6 +925,9 @@ togglePanel() {
         // Remove font size controls
         this.disableFontSizing();
         
+        // Remove ADHD spotlight
+        this.removeADHDSpotlight();
+        
         // Reset custom colors
         document.documentElement.style.removeProperty('--custom-text-color');
         document.documentElement.style.removeProperty('--custom-title-color');
@@ -938,7 +967,7 @@ let accessibilityWidget;
 
 // Wait for DOM to be ready
 function initWidget() {
-    console.log('Accessibility Widget: Starting initialization...'); // Debug log
+    console.log('Accessibility Widget: Starting initialization...');
     accessibilityWidget = new AccessibilityWidget();
 }
 
@@ -953,7 +982,7 @@ if (document.readyState === 'loading') {
 // Also try with a small delay as backup
 setTimeout(() => {
     if (!accessibilityWidget) {
-        console.log('Accessibility Widget: Initializing with timeout...'); // Debug log
+        console.log('Accessibility Widget: Initializing with timeout...');
         initWidget();
     }
 }, 1000);
