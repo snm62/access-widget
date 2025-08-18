@@ -14,11 +14,11 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* Accessibility Icon */
+/* Accessibility Icon - Changed to right side */
 .accessibility-icon {
     position: fixed;
     bottom: 20px;
-    left: 20px;
+    right: 20px; /* Changed from left to right */
     width: 60px;
     height: 60px;
     background: var(--primary-blue);
@@ -42,23 +42,25 @@
     font-size: 24px;
 }
 
-/* Accessibility Panel */
+/* Accessibility Panel - Changed to right side with spacing */
 .accessibility-panel {
     position: fixed;
-    top: 0;
-    left: -400px;
+    top: 20px; /* Added spacing from top */
+    right: -420px; /* Changed from left to right, hidden by default */
     width: 400px;
-    height: 100vh;
+    height: calc(100vh - 40px); /* Subtract top and bottom spacing */
     background: var(--white);
     box-shadow: var(--shadow-lg);
     z-index: 10000;
-    transition: left 0.3s ease;
+    transition: right 0.3s ease; /* Changed from left to right */
     overflow-y: auto;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 12px; /* Added rounded corners */
+    margin: 0 20px; /* Added spacing from sides */
 }
 
 .accessibility-panel.active {
-    left: 0;
+    right: 20px; /* Changed from left to right, visible when active */
 }
 
 /* Panel Header */
@@ -69,6 +71,7 @@
     padding: 20px;
     background: var(--primary-blue);
     color: var(--white);
+    border-radius: 12px 12px 0 0; /* Rounded top corners */
 }
 
 .close-btn {
@@ -119,35 +122,7 @@
     color: var(--white);
 }
 
-.search-bar {
-    position: relative;
-    margin: 0 20px 20px;
-}
-
-.search-bar input {
-    width: 100%;
-    padding: 12px 40px;
-    border: 2px solid var(--gray-200);
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-.search-bar i:first-child {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--gray-600);
-}
-
-.search-bar i:last-child {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--gray-600);
-    cursor: pointer;
-}
+/* Removed search bar styles */
 
 /* Profiles Section */
 .profiles-section {
@@ -245,7 +220,7 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-/* Panel Footer */
+/* Panel Footer - Removed accessiBe text */
 .panel-footer {
     position: sticky;
     bottom: 0;
@@ -253,9 +228,10 @@ input:checked + .slider:before {
     color: var(--white);
     padding: 15px 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centered the content */
     align-items: center;
     font-size: 14px;
+    border-radius: 0 0 12px 12px; /* Rounded bottom corners */
 }
 
 .panel-footer .learn-more {
@@ -281,10 +257,15 @@ input:checked + .slider:before {
 }
 
 /* Accessibility Features */
-/* Seizure Safe */
+/* Seizure Safe - Enhanced with grayscale and no animations */
 .seizure-safe * {
     animation: none !important;
     transition: none !important;
+    filter: grayscale(100%) !important; /* Added grayscale layer */
+}
+
+.seizure-safe {
+    filter: grayscale(100%) !important; /* Added grayscale layer */
 }
 
 /* Vision Impaired */
@@ -600,15 +581,20 @@ input:checked + .slider:before {
 /* Responsive Design */
 @media (max-width: 768px) {
     .accessibility-panel {
-        width: 100%;
-        left: -100%;
+        width: calc(100% - 40px);
+        right: -100%;
+        margin: 0 20px;
+    }
+    
+    .accessibility-panel.active {
+        right: 20px;
     }
     
     .accessibility-icon {
         width: 50px;
         height: 50px;
         bottom: 15px;
-        left: 15px;
+        right: 15px;
     }
     
     .accessibility-icon i {
@@ -618,7 +604,7 @@ input:checked + .slider:before {
 
 /* Ensure panel is visible when active */
 .accessibility-panel.active {
-    left: 0 !important;
+    right: 20px !important;
 }
 
 /* Ensure overlay is visible when active */
