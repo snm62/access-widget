@@ -470,14 +470,23 @@
                     text-decoration: underline !important;
                 }
                 
-                /* Increased contrast */
+                /* DECREASED contrast - change this value to adjust contrast */
                 body:not(#accessibility-widget):not(#accessibility-panel) {
-                    filter: contrast(1.3) !important;
+                    filter: contrast(0.8) !important;
                 }
                 
                 body:not(#accessibility-widget):not(#accessibility-panel) * {
-                    filter: contrast(1.3) !important;
+                    filter: contrast(0.8) !important;
                 }
+                
+                /* To add grayscale, uncomment and adjust the value below */
+                /* body:not(#accessibility-widget):not(#accessibility-panel) {
+                    filter: contrast(0.8) grayscale(0.3) !important;
+                }
+                
+                body:not(#accessibility-widget):not(#accessibility-panel) * {
+                    filter: contrast(0.8) grayscale(0.3) !important;
+                } */
                 
                 /* Ensure accessibility elements are not affected */
                 #accessibility-widget,
@@ -595,14 +604,23 @@
                     margin-bottom: 1em !important;
                 }
                 
-                /* Increased contrast */
+                /* DECREASED contrast - change this value to adjust contrast */
                 body:not(#accessibility-widget):not(#accessibility-panel) {
-                    filter: contrast(1.3) !important;
+                    filter: contrast(0.8) !important;
                 }
                 
                 body:not(#accessibility-widget):not(#accessibility-panel) * {
-                    filter: contrast(1.3) !important;
+                    filter: contrast(0.8) !important;
                 }
+                
+                /* To add grayscale, uncomment and adjust the value below */
+                /* body:not(#accessibility-widget):not(#accessibility-panel) {
+                    filter: contrast(0.8) grayscale(0.3) !important;
+                }
+                
+                body:not(#accessibility-widget):not(#accessibility-panel) * {
+                    filter: contrast(0.8) grayscale(0.3) !important;
+                } */
                 
                 /* Create a mask that makes everything darker except the spotlight area */
                 body:not(#accessibility-widget):not(#accessibility-panel)::before {
@@ -639,7 +657,7 @@
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    background: rgba(255, 255, 255, 0.3);
+                    background: rgba(255, 255, 255, 0.5);
                     z-index: 9996;
                     pointer-events: none;
                     mask: linear-gradient(to bottom, 
