@@ -49,9 +49,7 @@
     top: 20px;
     right: -450px;
     width: 400px;
-    max-width: calc(100vw - 40px);
     height: calc(100vh - 40px);
-    max-height: calc(100vh - 40px);
     background: var(--white);
     box-shadow: var(--shadow-lg);
     z-index: 10000;
@@ -308,7 +306,7 @@ input:checked + .slider:before {
     font-size: inherit !important;
 }
 
-/* ADHD Friendly - Fixed spotlight effect with JavaScript fallback */
+/* ADHD Friendly - Fixed spotlight effect */
 .adhd-friendly {
     position: relative;
 }
@@ -323,10 +321,10 @@ input:checked + .slider:before {
     height: 200px;
     background: linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.6) 0%,
-        rgba(255, 255, 255, 0.3) 20%,
-        rgba(255, 255, 255, 0.3) 80%,
-        rgba(255, 255, 255, 0.6) 100%
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0.4) 20%,
+        rgba(255, 255, 255, 0.4) 80%,
+        rgba(255, 255, 255, 0.8) 100%
     );
     transform: translateY(-50%);
     pointer-events: none;
@@ -636,16 +634,14 @@ input:checked + .slider:before {
     border-color: var(--primary-color);
 }
 
-/* Responsive Design - Fixed */
+/* Responsive Design - Completely Fixed */
 @media (max-width: 768px) {
     .accessibility-panel {
         width: calc(100vw - 40px);
-        max-width: calc(100vw - 40px);
         right: -100vw;
         margin: 0 20px;
         top: 10px;
         height: calc(100vh - 20px);
-        max-height: calc(100vh - 20px);
     }
     
     .accessibility-panel.active {
@@ -707,12 +703,10 @@ input:checked + .slider:before {
 @media (max-width: 480px) {
     .accessibility-panel {
         width: calc(100vw - 20px);
-        max-width: calc(100vw - 20px);
         margin: 0 10px;
         right: -100vw;
         top: 5px;
         height: calc(100vh - 10px);
-        max-height: calc(100vh - 10px);
     }
     
     .accessibility-panel.active {
