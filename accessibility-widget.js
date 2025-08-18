@@ -641,7 +641,7 @@ class AccessibilityWidget {
             <div class="panel-footer">
                 <div>
                     <i class="fas fa-check"></i>
-                    Web Accessibility By accessiBe
+                  
                 </div>
                 <a href="#" class="learn-more">Learn More ></a>
             </div>
