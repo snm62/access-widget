@@ -276,19 +276,20 @@
             this.focusLight = null;
         },
 
-        createWidget() {
-            const widget = document.createElement('div');
-            widget.id = 'accessibility-widget';
-            widget.innerHTML = `
-                <button id="accessibility-toggle" aria-label="Accessibility Menu" title="Accessibility Menu">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                </button>
-            `;
-            document.body.appendChild(widget);
-        },
-
+    createWidget() {
+    const widget = document.createElement('div');
+    widget.id = 'accessibility-widget';
+    widget.innerHTML = `
+        <button id="accessibility-toggle" aria-label="Accessibility Menu" title="Accessibility Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="white"/>
+                <circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="2"/>
+                <path d="M9 12l2 2 4-4" stroke="white" stroke-width="2" fill="none"/>
+            </svg>
+        </button>
+    `;
+    document.body.appendChild(widget);
+},
         createPanel() {
             const panel = document.createElement('div');
             panel.id = 'accessibility-panel';
