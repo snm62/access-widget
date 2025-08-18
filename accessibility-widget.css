@@ -15,7 +15,7 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* Accessibility Icon - New colors */
+/* Accessibility Icon - Fixed position on right side */
 .accessibility-icon {
     position: fixed;
     bottom: 20px;
@@ -43,13 +43,13 @@
     font-size: 24px;
 }
 
-/* Accessibility Panel - Fixed responsive design */
+/* Accessibility Panel - Fixed position on right side */
 .accessibility-panel {
     position: fixed;
     top: 20px;
-    right: -450px; /* Increased to account for larger mobile width */
+    right: -450px;
     width: 400px;
-    max-width: calc(100vw - 40px); /* Responsive width */
+    max-width: calc(100vw - 40px);
     height: calc(100vh - 40px);
     max-height: calc(100vh - 40px);
     background: var(--white);
@@ -174,7 +174,7 @@
     align-items: center;
     gap: 12px;
     flex: 1;
-    min-width: 0; /* Allow text to shrink */
+    min-width: 0;
 }
 
 .profile-info i {
@@ -277,7 +277,7 @@ input:checked + .slider:before {
 .seizure-safe * {
     animation: none !important;
     transition: none !important;
-    filter: grayscale(30%) !important; /* Reduced from 100% to 30% */
+    filter: grayscale(30%) !important;
 }
 
 .seizure-safe {
@@ -300,15 +300,15 @@ input:checked + .slider:before {
 
 /* Vision Impaired - Fixed to properly zoom instead of grey effect */
 .vision-impaired {
-    font-size: 1.3em !important; /* Increased font size */
-    filter: contrast(1.2) !important; /* Mild contrast increase */
+    font-size: 1.3em !important;
+    filter: contrast(1.2) !important;
 }
 
 .vision-impaired * {
     font-size: inherit !important;
 }
 
-/* ADHD Friendly - Fixed spotlight effect */
+/* ADHD Friendly - Fixed spotlight effect with JavaScript fallback */
 .adhd-friendly {
     position: relative;
 }
@@ -320,24 +320,24 @@ input:checked + .slider:before {
     top: 50%;
     left: 0;
     right: 0;
-    height: 200px; /* Rectangular spotlight height */
+    height: 200px;
     background: linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.4) 0%,
-        rgba(255, 255, 255, 0.2) 20%,
-        rgba(255, 255, 255, 0.2) 80%,
-        rgba(255, 255, 255, 0.4) 100%
+        rgba(255, 255, 255, 0.6) 0%,
+        rgba(255, 255, 255, 0.3) 20%,
+        rgba(255, 255, 255, 0.3) 80%,
+        rgba(255, 255, 255, 0.6) 100%
     );
     transform: translateY(-50%);
     pointer-events: none;
     z-index: 999;
-    filter: contrast(1.15) !important; /* Mild contrast increase */
+    filter: contrast(1.15) !important;
 }
 
 /* Make content inside spotlight area enhanced */
 .adhd-friendly * {
     position: relative;
-    z-index: 1000; /* Ensure content is above the spotlight */
+    z-index: 1000;
 }
 
 .adhd-friendly .adhd-focus {
@@ -636,7 +636,7 @@ input:checked + .slider:before {
     border-color: var(--primary-color);
 }
 
-/* Responsive Design - Completely Fixed */
+/* Responsive Design - Fixed */
 @media (max-width: 768px) {
     .accessibility-panel {
         width: calc(100vw - 40px);
