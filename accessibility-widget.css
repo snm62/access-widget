@@ -264,6 +264,22 @@ input:checked + .slider:before {
     font-weight: 600;
 }
 
+/* Overlay */
+.accessibility-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    display: none;
+}
+
+.accessibility-overlay.active {
+    display: block;
+}
+
 /* Accessibility Features */
 /* Seizure Safe */
 .seizure-safe * {
@@ -372,6 +388,10 @@ input:checked + .slider:before {
     z-index: 10001;
     display: none;
     box-shadow: var(--shadow-lg);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    overflow: hidden;
 }
 
 /* Font Sizing */
@@ -559,6 +579,24 @@ input:checked + .slider:before {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="white" stroke="black" stroke-width="2"/></svg>') 16 16, auto !important;
 }
 
+/* Font Size Controls */
+#font-size-controls {
+    display: flex;
+    gap: 5px;
+}
+
+#font-size-controls button {
+    padding: 5px 10px;
+    border: 1px solid var(--gray-300);
+    background: var(--white);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#font-size-controls button:hover {
+    background: var(--gray-100);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .accessibility-panel {
@@ -578,18 +616,12 @@ input:checked + .slider:before {
     }
 }
 
-/* Overlay */
-.accessibility-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 9998;
-    display: none;
+/* Ensure panel is visible when active */
+.accessibility-panel.active {
+    left: 0 !important;
 }
 
+/* Ensure overlay is visible when active */
 .accessibility-overlay.active {
-    display: block;
+    display: block !important;
 }
