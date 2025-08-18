@@ -452,41 +452,19 @@
             const style = document.createElement('style');
             style.id = 'vision-impaired-styles';
             style.textContent = `
+                /* Zoom in the main content only */
                 body:not(#accessibility-widget):not(#accessibility-panel) {
                     zoom: 1.16 !important;
                 }
                 
-                body:not(#accessibility-widget):not(#accessibility-panel) * {
-                    font-family: Arial, Helvetica, sans-serif !important;
-                }
-                
+                /* Apply a little bit of contrast */
                 body:not(#accessibility-widget):not(#accessibility-panel) {
-                    color: #000000 !important;
-                    background-color: #ffffff !important;
-                }
-                
-                body:not(#accessibility-widget):not(#accessibility-panel) a {
-                    color: #0000EE !important;
-                    text-decoration: underline !important;
-                }
-                
-                /* DECREASED contrast - change this value to adjust contrast */
-                body:not(#accessibility-widget):not(#accessibility-panel) {
-                    filter: contrast(0.8) !important;
+                    filter: contrast(1.1) !important;
                 }
                 
                 body:not(#accessibility-widget):not(#accessibility-panel) * {
-                    filter: contrast(0.8) !important;
+                    filter: contrast(1.1) !important;
                 }
-                
-                /* To add grayscale, uncomment and adjust the value below */
-                /* body:not(#accessibility-widget):not(#accessibility-panel) {
-                    filter: contrast(0.8) grayscale(0.3) !important;
-                }
-                
-                body:not(#accessibility-widget):not(#accessibility-panel) * {
-                    filter: contrast(0.8) grayscale(0.3) !important;
-                } */
                 
                 /* Ensure accessibility elements are not affected */
                 #accessibility-widget,
