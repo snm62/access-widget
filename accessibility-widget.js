@@ -690,73 +690,73 @@
             }
         },
 
-        applyCognitiveStyles() {
-            this.removeCognitiveStyles();
-            
-            const style = document.createElement('style');
-            style.id = 'cognitive-styles';
-            style.textContent = `
-                body:not(#accessibility-widget):not(#accessibility-panel) {
-                    font-family: Arial, Helvetica, sans-serif !important;
-                    font-size: 18px !important;
-                    line-height: 1.8 !important;
-                }
-                
-                body:not(#accessibility-widget):not(#accessibility-panel) p {
-                    margin-bottom: 1.5em !important;
-                }
-                
-                body:not(#accessibility-widget):not(#accessibility-panel) a {
-                    text-decoration: underline !important;
-                    color: #0000EE !important;
-                }
-                
-                body:not(#accessibility-widget):not(#accessibility-panel) *:focus {
-                    outline: 3px solid #0000EE !important;
-                    outline-offset: 2px !important;
-                }
-                
-                /* Add boxes around all interactive elements */
-                body:not(#accessibility-widget):not(#accessibility-panel) button,
-                body:not(#accessibility-widget):not(#accessibility-panel) input,
-                body:not(#accessibility-widget):not(#accessibility-panel) select,
-                body:not(#accessibility-widget):not(#accessibility-panel) textarea,
-                body:not(#accessibility-widget):not(#accessibility-panel) a,
-                body:not(#accessibility-widget):not(#accessibility-panel) h1,
-                body:not(#accessibility-widget):not(#accessibility-panel) h2,
-                body:not(#accessibility-widget):not(#accessibility-panel) h3,
-                body:not(#accessibility-widget):not(#accessibility-panel) h4,
-                body:not(#accessibility-widget):not(#accessibility-panel) h5,
-                body:not(#accessibility-widget):not(#accessibility-panel) h6,
-                body:not(#accessibility-widget):not(#accessibility-panel) li,
-                body:not(#accessibility-widget):not(#accessibility-panel) label,
-                body:not(#accessibility-widget):not(#accessibility-panel) [role="button"],
-                body:not(#accessibility-widget):not(#accessibility-panel) [role="link"],
-                body:not(#accessibility-widget):not(#accessibility-panel) [role="menuitem"],
-                body:not(#accessibility-widget):not(#accessibility-panel) [role="tab"],
-                body:not(#accessibility-widget):not(#accessibility-panel) [role="option"] {
-                    border: 2px solid #0066CC !important;
-                    border-radius: 4px !important;
-                    padding: 4px 8px !important;
-                    margin: 2px !important;
-                    background-color: rgba(0, 102, 204, 0.05) !important;
-                }
-                
-                /* Ensure accessibility elements are not affected */
-                #accessibility-widget,
-                #accessibility-panel {
-                    border: none !important;
-                    background-color: transparent !important;
-                }
-                
-                #accessibility-widget *,
-                #accessibility-panel * {
-                    border: none !important;
-                    background-color: transparent !important;
-                }
-            `;
-            document.head.appendChild(style);
-        },
+applyCognitiveStyles() {
+    this.removeCognitiveStyles();
+    
+    const style = document.createElement('style');
+    style.id = 'cognitive-styles';
+    style.textContent = `
+        body:not(#accessibility-widget):not(#accessibility-panel) {
+            font-family: Arial, Helvetica, sans-serif !important;
+            font-size: 18px !important;
+            line-height: 1.8 !important;
+        }
+        
+        body:not(#accessibility-widget):not(#accessibility-panel) p {
+            margin-bottom: 1.5em !important;
+        }
+        
+        body:not(#accessibility-widget):not(#accessibility-panel) a {
+            text-decoration: underline !important;
+            color: #0000EE !important;
+        }
+        
+        body:not(#accessibility-widget):not(#accessibility-panel) *:focus {
+            outline: 3px solid #0000EE !important;
+            outline-offset: 2px !important;
+        }
+        
+        /* Add boxes around all interactive elements */
+        body:not(#accessibility-widget):not(#accessibility-panel) button,
+        body:not(#accessibility-widget):not(#accessibility-panel) input,
+        body:not(#accessibility-widget):not(#accessibility-panel) select,
+        body:not(#accessibility-widget):not(#accessibility-panel) textarea,
+        body:not(#accessibility-widget):not(#accessibility-panel) a,
+        body:not(#accessibility-widget):not(#accessibility-panel) h1,
+        body:not(#accessibility-widget):not(#accessibility-panel) h2,
+        body:not(#accessibility-widget):not(#accessibility-panel) h3,
+        body:not(#accessibility-widget):not(#accessibility-panel) h4,
+        body:not(#accessibility-widget):not(#accessibility-panel) h5,
+        body:not(#accessibility-widget):not(#accessibility-panel) h6,
+        body:not(#accessibility-widget):not(#accessibility-panel) li,
+        body:not(#accessibility-widget):not(#accessibility-panel) label,
+        body:not(#accessibility-widget):not(#accessibility-panel) [role="button"],
+        body:not(#accessibility-widget):not(#accessibility-panel) [role="link"],
+        body:not(#accessibility-widget):not(#accessibility-panel) [role="menuitem"],
+        body:not(#accessibility-widget):not(#accessibility-panel) [role="tab"],
+        body:not(#accessibility-widget):not(#accessibility-panel) [role="option"] {
+            border: 2px solid #0066CC !important;
+            border-radius: 4px !important;
+            padding: 4px 8px !important;
+            margin: 2px !important;
+            background-color: rgba(0, 102, 204, 0.05) !important;
+        }
+        
+        /* Ensure accessibility elements are not affected */
+        #accessibility-widget,
+        #accessibility-panel {
+            border: none !important;
+            background-color: transparent !important;
+        }
+        
+        #accessibility-widget *,
+        #accessibility-panel * {
+            border: none !important;
+            background-color: transparent !important;
+        }
+    `;
+    document.head.appendChild(style);
+}
 
         removeCognitiveStyles() {
             const style = document.getElementById('cognitive-styles');
@@ -779,52 +779,51 @@
             }
         },
 
-        applyKeyboardNavigationStyles() {
-            this.removeKeyboardNavigationStyles();
-            
-            const style = document.createElement('style');
-            style.id = 'keyboard-navigation-styles';
-            style.textContent = `
-                /* Enhanced focus indicators */
-                body:not(#accessibility-widget):not(#accessibility-panel) *:focus {
-                    outline: 3px solid #0066CC !important;
-                    outline-offset: 2px !important;
-                    background-color: rgba(0, 102, 204, 0.1) !important;
-                }
-                
-                /* Skip links */
-                .skip-link {
-                    position: absolute;
-                    top: -40px;
-                    left: 6px;
-                    background: #0066CC;
-                    color: white;
-                    padding: 8px;
-                    text-decoration: none;
-                    border-radius: 4px;
-                    z-index: 10000;
-                }
-                
-                .skip-link:focus {
-                    top: 6px;
-                }
-                
-                /* Ensure accessibility elements are not affected */
-                #accessibility-widget,
-                #accessibility-panel {
-                    outline: none !important;
-                    background-color: transparent !important;
-                }
-                
-                #accessibility-widget *,
-                #accessibility-panel * {
-                    outline: none !important;
-                    background-color: transparent !important;
-                }
-            `;
-            document.head.appendChild(style);
-        },
-
+applyKeyboardNavigationStyles() {
+    this.removeKeyboardNavigationStyles();
+    
+    const style = document.createElement('style');
+    style.id = 'keyboard-navigation-styles';
+    style.textContent = `
+        /* Enhanced focus indicators */
+        body:not(#accessibility-widget):not(#accessibility-panel) *:focus {
+            outline: 3px solid #0066CC !important;
+            outline-offset: 2px !important;
+            background-color: rgba(0, 102, 204, 0.1) !important;
+        }
+        
+        /* Skip links */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #0066CC;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 10000;
+        }
+        
+        .skip-link:focus {
+            top: 6px;
+        }
+        
+        /* Ensure accessibility elements are not affected */
+        #accessibility-widget,
+        #accessibility-panel {
+            outline: none !important;
+            background-color: transparent !important;
+        }
+        
+        #accessibility-widget *,
+        #accessibility-panel * {
+            outline: none !important;
+            background-color: transparent !important;
+        }
+    `;
+    document.head.appendChild(style);
+}
         removeKeyboardNavigationStyles() {
             const style = document.getElementById('keyboard-navigation-styles');
             if (style) {
