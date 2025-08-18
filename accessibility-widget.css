@@ -279,33 +279,22 @@ input:checked + .slider:before {
     transition-delay: 0s !important;
 }
 
-/* Vision Impaired - Mild contrast increase */
+/* Vision Impaired - Fixed to properly zoom instead of grey effect */
 .vision-impaired {
-    font-size: 1.2em !important;
-    filter: contrast(0.7) !important; /* Mild contrast increase */
+    font-size: 1.3em !important; /* Increased font size */
+    filter: contrast(1.2) !important; /* Mild contrast increase */
 }
 
 .vision-impaired * {
     font-size: inherit !important;
-    filter: contrast(0.8) !important;
 }
 
-.vision-impaired {
-    background: var(--white) !important;
-    color: var(--black) !important;
-}
-
-.vision-impaired * {
-    background: inherit !important;
-    color: inherit !important;
-}
-
-/* ADHD Friendly - Torch-like spotlight effect */
+/* ADHD Friendly - Pure spotlight effect without dark overlay */
 .adhd-friendly {
     position: relative;
 }
 
-/* Create the torch spotlight effect */
+/* Create the torch spotlight effect - only the spotlight, no dark overlay */
 .adhd-friendly::before {
     content: '';
     position: fixed;
@@ -313,25 +302,23 @@ input:checked + .slider:before {
     left: 0;
     right: 0;
     height: 200px; /* Rectangular spotlight height */
-    background: transparent; /* Clear space inside spotlight */
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0.1) 20%,
+        rgba(255, 255, 255, 0.1) 80%,
+        rgba(255, 255, 255, 0.3) 100%
+    );
     transform: translateY(-50%);
     pointer-events: none;
     z-index: 999;
-    box-shadow: 
-        inset 0 0 0 1000px rgba(0, 0, 0, 0.7), /* Dark overlay everywhere */
-        0 0 0 1000px rgba(0, 0, 0, 0.7); /* Dark overlay outside spotlight */
-    clip-path: polygon(
-        0 calc(50% - 100px), /* Top left */
-        100% calc(50% - 100px), /* Top right */
-        100% calc(50% + 100px), /* Bottom right */
-        0 calc(50% + 100px) /* Bottom left */
-    );
+    filter: contrast(1.15) !important; /* Mild contrast increase */
 }
 
-/* Make content inside spotlight area clear and readable */
+/* Make content inside spotlight area enhanced */
 .adhd-friendly * {
     position: relative;
-    z-index: 1000; /* Ensure content is above the overlay */
+    z-index: 1000; /* Ensure content is above the spotlight */
 }
 
 .adhd-friendly .adhd-focus {
@@ -630,12 +617,14 @@ input:checked + .slider:before {
     border-color: var(--primary-color);
 }
 
-/* Responsive Design */
+/* Responsive Design - Fixed */
 @media (max-width: 768px) {
     .accessibility-panel {
-        width: calc(100% - 40px);
-        right: -100%;
+        width: calc(100vw - 40px);
+        right: -100vw;
         margin: 0 20px;
+        top: 10px;
+        height: calc(100vh - 20px);
     }
     
     .accessibility-panel.active {
@@ -652,9 +641,83 @@ input:checked + .slider:before {
     .accessibility-icon i {
         font-size: 20px;
     }
+
+    .profile-item {
+        padding: 12px;
+        margin-bottom: 8px;
+    }
+
+    .profile-info h4 {
+        font-size: 14px;
+    }
+
+    .profile-info p {
+        font-size: 12px;
+    }
+
+    .action-btn {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+
+    .accessibility-panel h2 {
+        font-size: 20px;
+        margin: 15px 0;
+    }
+
+    .profiles-section h3 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .accessibility-panel {
+        width: calc(100vw - 20px);
+        margin: 0 10px;
+        right: -100vw;
+    }
+    
+    .accessibility-panel.active {
+        right: 10px;
+    }
+
+    .accessibility-icon {
+        width: 45px;
+        height: 45px;
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .accessibility-icon i {
+        font-size: 18px;
+    }
+
+    .panel-header {
+        padding: 15px;
+    }
+
+    .profiles-section {
+        padding: 0 15px 15px;
+    }
+
+    .action-buttons {
+        padding: 0 15px;
+    }
 }
 
 /* Ensure panel is visible when active */
 .accessibility-panel.active {
     right: 20px !important;
+}
+
+@media (max-width: 768px) {
+    .accessibility-panel.active {
+        right: 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .accessibility-panel.active {
+        right: 10px !important;
+    }
 }
