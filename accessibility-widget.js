@@ -1,14 +1,28 @@
 class AccessibilityWidget {
     constructor() {
         this.settings = {};
+        console.log('Accessibility Widget: Initializing...'); // Debug log
         this.init();
     }
 
     init() {
+        this.addFontAwesome();
         this.createWidget();
         this.loadSettings();
         this.bindEvents();
         this.applySettings();
+        console.log('Accessibility Widget: Initialized successfully'); // Debug log
+    }
+
+    addFontAwesome() {
+        // Add Font Awesome CSS if not already present
+        if (!document.querySelector('link[href*="font-awesome"]')) {
+            const fontAwesome = document.createElement('link');
+            fontAwesome.rel = 'stylesheet';
+            fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
+            document.head.appendChild(fontAwesome);
+            console.log('Accessibility Widget: Font Awesome added'); // Debug log
+        }
     }
 
     createWidget() {
@@ -18,6 +32,7 @@ class AccessibilityWidget {
         icon.className = 'accessibility-icon';
         icon.innerHTML = '<i class="fas fa-universal-access"></i>';
         document.body.appendChild(icon);
+        console.log('Accessibility Widget: Icon created'); // Debug log
 
         // Create overlay
         const overlay = document.createElement('div');
@@ -31,14 +46,7 @@ class AccessibilityWidget {
         panel.className = 'accessibility-panel';
         panel.innerHTML = this.getPanelHTML();
         document.body.appendChild(panel);
-
-        // Add Font Awesome if not present
-        if (!document.querySelector('link[href*="font-awesome"]')) {
-            const fontAwesome = document.createElement('link');
-            fontAwesome.rel = 'stylesheet';
-            fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
-            document.head.appendChild(fontAwesome);
-        }
+        console.log('Accessibility Widget: Panel created'); // Debug log
     }
 
     getPanelHTML() {
@@ -646,35 +654,58 @@ class AccessibilityWidget {
     }
 
     bindEvents() {
+        console.log('Accessibility Widget: Binding events...'); // Debug log
+        
         // Toggle panel
-        document.getElementById('accessibility-icon').addEventListener('click', () => {
-            this.togglePanel();
-        });
+        const icon = document.getElementById('accessibility-icon');
+        if (icon) {
+            icon.addEventListener('click', () => {
+                console.log('Accessibility Widget: Icon clicked'); // Debug log
+                this.togglePanel();
+            });
+        } else {
+            console.error('Accessibility Widget: Icon not found!');
+        }
 
         // Close panel
-        document.getElementById('close-panel').addEventListener('click', () => {
-            this.togglePanel();
-        });
+        const closeBtn = document.getElementById('close-panel');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                this.togglePanel();
+            });
+        }
 
         // Overlay click
-        document.getElementById('accessibility-overlay').addEventListener('click', () => {
-            this.togglePanel();
-        });
+        const overlay = document.getElementById('accessibility-overlay');
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                this.togglePanel();
+            });
+        }
 
         // Reset settings
-        document.getElementById('reset-settings').addEventListener('click', () => {
-            this.resetSettings();
-        });
+        const resetBtn = document.getElementById('reset-settings');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                this.resetSettings();
+            });
+        }
 
         // Hide interface
-        document.getElementById('hide-interface').addEventListener('click', () => {
-            this.togglePanel();
-        });
+        const hideBtn = document.getElementById('hide-interface');
+        if (hideBtn) {
+            hideBtn.addEventListener('click', () => {
+                this.togglePanel();
+            });
+        }
 
         // Statement
-        document.getElementById('statement').addEventListener('click', () => {
-            this.showStatement();
-        });
+        const statementBtn = document.getElementById('statement');
+        if (statementBtn) {
+            statementBtn.addEventListener('click', () => {
+                this.showStatement();
+            });
+        }
 
         // Bind all toggle switches
         const toggles = document.querySelectorAll('.toggle-switch input');
@@ -693,18 +724,27 @@ class AccessibilityWidget {
 
         // Text magnifier
         this.initTextMagnifier();
+        
+        console.log('Accessibility Widget: Events bound successfully'); // Debug log
     }
 
     togglePanel() {
+        console.log('Accessibility Widget: Toggling panel...'); // Debug log
         const panel = document.getElementById('accessibility-panel');
         const overlay = document.getElementById('accessibility-overlay');
         
-        if (panel.classList.contains('active')) {
-            panel.classList.remove('active');
-            overlay.classList.remove('active');
+        if (panel && overlay) {
+            if (panel.classList.contains('active')) {
+                panel.classList.remove('active');
+                overlay.classList.remove('active');
+                console.log('Accessibility Widget: Panel closed'); // Debug log
+            } else {
+                panel.classList.add('active');
+                overlay.classList.add('active');
+                console.log('Accessibility Widget: Panel opened'); // Debug log
+            }
         } else {
-            panel.classList.add('active');
-            overlay.classList.add('active');
+            console.error('Accessibility Widget: Panel or overlay not found!');
         }
     }
 
@@ -903,15 +943,25 @@ class AccessibilityWidget {
 
 // Initialize the widget when DOM is loaded
 let accessibilityWidget;
-document.addEventListener('DOMContentLoaded', () => {
-    accessibilityWidget = new AccessibilityWidget();
-});
 
-// Also initialize if DOM is already loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        accessibilityWidget = new AccessibilityWidget();
-    });
-} else {
+// Wait for DOM to be ready
+function initWidget() {
+    console.log('Accessibility Widget: Starting initialization...'); // Debug log
     accessibilityWidget = new AccessibilityWidget();
 }
+
+// Try multiple ways to initialize
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWidget);
+} else {
+    // DOM is already loaded
+    initWidget();
+}
+
+// Also try with a small delay as backup
+setTimeout(() => {
+    if (!accessibilityWidget) {
+        console.log('Accessibility Widget: Initializing with timeout...'); // Debug log
+        initWidget();
+    }
+}, 1000);
