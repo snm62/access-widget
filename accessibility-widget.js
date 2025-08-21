@@ -777,43 +777,58 @@ class AccessibilityWidget {
         }
     }
 
-    createADHDSpotlight() {
-        // Remove existing spotlight if any
-        this.removeADHDSpotlight();
-        
-        // Create new spotlight
-        const spotlight = document.createElement('div');
-        spotlight.id = 'adhd-spotlight';
-        spotlight.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 200px;
-            background: linear-gradient(
-                to bottom,
-                rgba(255, 255, 255, 0.8) 0%,
-                rgba(255, 255, 255, 0.4) 20%,
-                rgba(255, 255, 255, 0.4) 80%,
-                rgba(255, 255, 255, 0.8) 100%
-            );
-            transform: translateY(-50%);
-            pointer-events: none;
-            z-index: 999;
-            filter: contrast(1.15);
-        `;
-        document.body.appendChild(spotlight);
-        console.log('Accessibility Widget: ADHD spotlight created');
-    }
+createADHDSpotlight() {
+    // Remove existing spotlight if any
+    this.removeADHDSpotlight();
+    
+    // Create new spotlight
+    const spotlight = document.createElement('div');
+    spotlight.id = 'adhd-spotlight';
+    spotlight.style.cssText = `
+        position: fixed;
+        width: 300px;
+        height: 200px;
+        background: radial-gradient(
+            ellipse at center,
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(255, 255, 255, 0.6) 40%,
+            rgba(255, 255, 255, 0.3) 70%,
+            rgba(255, 255, 255, 0.1) 100%
+        );
+        border: 2px solid rgba(99, 102, 241, 0.3);
+        border-radius: 8px;
+        pointer-events: none;
+        z-index: 999;
+        filter: contrast(1.15);
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+        transform: translate(-50%, -50%);
+        transition: none;
+    `;
+    document.body.appendChild(spotlight);
+    
+    // Add mouse move event listener
+    this.adhdMouseMoveHandler = (e) => {
+        spotlight.style.left = e.clientX + 'px';
+        spotlight.style.top = e.clientY + 'px';
+    };
+    
+    document.addEventListener('mousemove', this.adhdMouseMoveHandler);
+    console.log('Accessibility Widget: ADHD spotlight created with cursor tracking');
+}
 
-    removeADHDSpotlight() {
-        const spotlight = document.getElementById('adhd-spotlight');
-        if (spotlight) {
-            spotlight.remove();
-            console.log('Accessibility Widget: ADHD spotlight removed');
-        }
+removeADHDSpotlight() {
+    const spotlight = document.getElementById('adhd-spotlight');
+    if (spotlight) {
+        spotlight.remove();
     }
-
+    
+    // Remove mouse move event listener
+    if (this.adhdMouseMoveHandler) {
+        document.removeEventListener('mousemove', this.adhdMouseMoveHandler);
+        this.adhdMouseMoveHandler = null;
+    }
+    console.log('Accessibility Widget: ADHD spotlight removed');
+}
     initTextMagnifier() {
         const magnifier = document.createElement('div');
         magnifier.className = 'magnifier';
