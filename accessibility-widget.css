@@ -311,27 +311,10 @@ input:checked + .slider:before {
     position: relative;
 }
 
-/* Create the torch spotlight effect - only the spotlight, no dark overlay */
+/* Remove the old fixed spotlight */
 .adhd-friendly::before {
-    content: '';
-    position: fixed;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 200px;
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.8) 0%,
-        rgba(255, 255, 255, 0.4) 20%,
-        rgba(255, 255, 255, 0.4) 80%,
-        rgba(255, 255, 255, 0.8) 100%
-    );
-    transform: translateY(-50%);
-    pointer-events: none;
-    z-index: 999;
-    filter: contrast(1.15) !important;
+    display: none;
 }
-
 /* Make content inside spotlight area enhanced */
 .adhd-friendly * {
     position: relative;
